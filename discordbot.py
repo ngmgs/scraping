@@ -18,8 +18,8 @@ def main():
     #print(url)
     for item in soup.find_all(class_="dui-card searchresultitem"):
         print("#" * 50)
-        #print(item)
-        print(item.soup.find(class_="important").text)
+        print(item)
+        #print(item.soup.find(class_="important").text)
         title = item.get("title")
         if title is None:
             continue
