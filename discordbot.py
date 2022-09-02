@@ -18,6 +18,7 @@ def main():
     for item in soup.find_all(class_="important"):
         print("#" * 50)
         print(item)
+        print(soup.find("span").text)
         title = item.get("title")
         if title is None:
             continue
