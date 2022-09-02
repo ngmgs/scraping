@@ -16,7 +16,7 @@ def main():
         "https://search.rakuten.co.jp/search/mall/%E3%83%9F%E3%83%83%E3%82%AF%E3%82%B9%E3%83%8A%E3%83%83%E3%83%84/").content
     soup = BeautifulSoup(url)
     #print(url)
-    for item in soup.find_all("a", attrs={"data-track-trigger": "title", "target": "_top"):
+    for item in soup.find_all("a", attrs={"data-track-trigger": "title", "target": "_top"}):
         print("#" * 50)
         print(item.text)
         #print(item.soup.find(class_="important").text)
