@@ -18,7 +18,6 @@ def main():
     #print(url)
     for item in soup.find_all(class_="dui-card searchresultitem"):
         print("#" * 50)
-        print(item.soup.find_all(class_="important"))
         #print(item)
         print(item.text)
         title = item.get("title")
