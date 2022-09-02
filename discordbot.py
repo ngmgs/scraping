@@ -17,7 +17,7 @@ def main():
     #print(url)
     for item in soup.find_all(class_="important"):
         print("#" * 50)
-        #print(item)
+        print(item)
         title = item.get("title")
         if title is None:
             continue
