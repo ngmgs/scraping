@@ -1,10 +1,10 @@
 import discord
 import traceback
+import requests
 from discord.ext import commands
 from discord.ext import tasks
 from os import getenv
 from datetime import datetime, timezone, timedelta, time
-import requests
 from bs4 import BeautifulSoup
 
 bot = commands.Bot(command_prefix="/",intents=discord.Intents.all())
