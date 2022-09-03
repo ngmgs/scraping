@@ -20,7 +20,7 @@ def main():
         print("#" * 50)
         #print(item.find("a", attrs={"data-track-trigger": "title", "target": "_top"}).text)
         #print(item.find(class_="important").text)
-        title = item.find("a", attrs={"data-track-trigger": "title", "target": "_top"}).text
+        title = item.find("a", attrs={"data-track-trigger": "title", "target": "_top"}).get("title")
         print(title)
         
 
