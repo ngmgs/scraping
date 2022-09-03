@@ -18,7 +18,7 @@ def main():
     #print(url)
     for item in soup.find_all(class_="dui-card searchresultitem"):
         print("#" * 50)
-        #print(item.text)
+        print(item.find("a", attrs={"data-track-trigger": "title", "target": "_top"}).text)
         print(item.find(class_="important").text)
 
 
