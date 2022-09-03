@@ -21,6 +21,9 @@ def main():
         #print(item.find("a", attrs={"data-track-trigger": "title", "target": "_top"}).text)
         #print(item.find(class_="important").text)
         title = item.find("a", attrs={"data-track-trigger": "title", "target": "_top"}).get("title")
+        if title is None:
+            continue
+        print("-" * 50)
         print(title)
         
 
