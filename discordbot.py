@@ -10,18 +10,18 @@ from bs4 import BeautifulSoup
 bot = commands.Bot(command_prefix="/",intents=discord.Intents.all())
 
 
-
+"""楽天から商品名と価格を取得
 def main():
     url = requests.get(
         "https://search.rakuten.co.jp/search/mall/%E3%83%9F%E3%83%83%E3%82%AF%E3%82%B9%E3%83%8A%E3%83%83%E3%83%84/").content
     soup = BeautifulSoup(url)
     #print(url)
-    for item in soup.find_all(class_="dui-card searchresultitem"):
+    for item in soup.find_all(class_="dui-card searchresultitem"): #商品の親要素divをクラス名で取得
         print("#" * 50)
         #print(item.find("a", attrs={"data-track-trigger": "title", "target": "_top"}).text)
         #print(item.find(class_="important").text)
-        title = item.find("a", attrs={"data-track-trigger": "title", "target": "_top"}).get("title")
-        price = item.find(class_="important").text
+        title = item.find("a", attrs={"data-track-trigger": "title", "target": "_top"}).get("title") #itemからaタグのtitleで商品名を取得
+        price = item.find(class_="important").text #itemからクラス名で価格を取得
         if title is None:
             continue
         print("-" * 50)
@@ -29,7 +29,26 @@ def main():
         print("-" * 50)
         print(price)
         
+"""
 
+#PC4Uからグラボの商品名と価格を取得
+def main():
+    url = requests.get(
+        "https://www.pc4u.co.jp/shopbrand/graphics/").content
+    soup = BeautifulSoup(url)
+    #print(url)
+    for item in soup.find_all(class_="innerBox"): #商品の親要素divをクラス名で取得
+        print("#" * 50)
+        #print(item.find("a", attrs={"data-track-trigger": "title", "target": "_top"}).text)
+        #print(item.find(class_="important").text)
+        title = item.find(class_="name").text #itemからクラス名で商品名を取得
+        price = item.find(class_="price").text #itemからクラス名で価格を取得
+        if title is None:
+            continue
+        print("-" * 50)
+        print(title)
+        print("-" * 50)
+        print(price)
 
 
 if __name__ == "__main__":
