@@ -20,14 +20,23 @@ is_text = {}
 
 
 async def _check_url(message: discord.Message):
-    # もしメッセージにURLが含まれていたら
     url_list = re.findall(pattern, message.content)
+    # もしメッセージにURLが含まれていたら
     if re.match(pattern, message.content):
         # もし辞書に同じURLが含まれていたら(含まれていなかったらNoneが返る)
         if is_text.get(url_list[0], None) is not None:
             # 送信されていた時間を取り出す
             _sent_date = is_text[url_list[0]]
             print(_sent_date)
+            # もし差分が3600秒以上(1h)なら、送信された時間を更新して終了
+            if (datetime.datetime.now() - _sent_date).seconds >= 3600:
+                is_text[url_list[0]] = datetime.datetime.now()
+                return
+            else:
+                # 1h以内に投稿されていた場合削除
+                alert_msg = await message.channel.send("そのURLが入ったメッセージが1時間以内に投稿されています。削除します。")
+                await message.delete(delay=1)
+                await alert_msg.delete(delay=3)
         else:
             print("空である")
             is_text[url_list[0]] = datetime.datetime.now()
