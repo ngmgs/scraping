@@ -21,8 +21,8 @@ is_text = {}
 
 async def _check_url(message: discord.Message):
     # もしメッセージにURLが含まれていたら
+    url_list = re.findall(pattern, message.content)
     if re.match(pattern, message.content):
-        url_list = re.findall(pattern, message.content)
         # もし辞書に同じURLが含まれていたら(含まれていなかったらNoneが返る)
         if is_text.get(url_list[0], None) is not None:
             # 送信されていた時間を取り出す
