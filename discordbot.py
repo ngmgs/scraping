@@ -17,13 +17,12 @@ pattern = "https?://[\w/:%#\$&\?\(\)~\.=\+\-]+"
 # その送信者のIDを辞書に入れる
 is_matched = {}
 is_text = {}
-url_list = {}
 
 
 async def _check_url(message: discord.Message):
     print(message.content)
     url_list = re.findall(pattern, message.content)
-    is_text[url_list] = datetime.datetime.now()
+    is_text = url_list : datetime.datetime.now()
     print(is_test)
 
 
