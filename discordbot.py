@@ -20,12 +20,14 @@ is_text = {}
 
 
 async def _check_url(message: discord.Message):
-    if is_text is not None:
+    if any(is_text):
         print(message.content)
         url_list = re.findall(pattern, message.content)
         print(url_list)
         is_text[url_list[0]] = datetime.datetime.now()
         print(is_text)
+    else:
+    print("空である")
 
 
 '''
