@@ -12,7 +12,7 @@ bot = commands.Bot(command_prefix="/",intents=discord.Intents.all())
 
 URL = r"https://"
 url = re.compile(URL)
-pattern = re.compile(r"https?://[\w/:%#\$&\?\(\)~\.=\+\-]+")
+pattern = "https?://[\w/:%#\$&\?\(\)~\.=\+\-]+"
 
 # その送信者のIDを辞書に入れる
 is_matched = {}
