@@ -12,6 +12,7 @@ bot = commands.Bot(command_prefix="/",intents=discord.Intents.all())
 
 URL = r"https://"
 url = re.compile(URL)
+pattern = "https?://[\w/:%#\$&\?\(\)~\.=\+\-]+"
 
 # その送信者のIDを辞書に入れる
 is_matched = {}
@@ -20,8 +21,9 @@ is_text = {}
 
 async def _check_url(message: discord.Message):
     print(message.content)
-    is_text[message.content] = datetime.datetime.now()
-    print(is_text)
+    url_list = re.findall(pattern, message.content)
+    is_text[url_list] = datetime.datetime.now()
+    print(is_test)
 
 
 '''
