@@ -18,7 +18,7 @@ is_matched = {}
 
 
 async def _check_url(message: discord.Message):
-    print(is_matched)
+    print(message.content)
     # もしメッセージにURLが含まれていたら
     if url.search(message.content) is not None:
         # もし辞書に送信者のIDが含まれていたら(含まれていなかったらNoneが返る)
