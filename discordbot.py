@@ -41,6 +41,7 @@ async def _check_url(message: discord.Message):
                 alert_msg = await message.channel.send("そのURLが入ったメッセージが1時間以内に投稿されています。削除します。")
                 await message.delete(delay=1)
                 await alert_msg.delete(delay=3)
+                return
         else:
             # 辞書にURLが登録されていなかったのでURLと発言時間を登録する
             print("辞書にURLと発言時間を登録")
