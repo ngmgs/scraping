@@ -10,7 +10,7 @@ from bs4 import BeautifulSoup
 
 bot = commands.Bot(command_prefix="/",intents=discord.Intents.all())
 
-URL = r"https://lohaco.yahoo.co.jp/coupon/others/MTRhZjZkYjAyMDYwM2QyN2JjMWU2MzJlNTQw"
+URL = r"https://"
 url = re.compile(URL)
 
 # その送信者のIDを辞書に入れる
