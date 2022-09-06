@@ -10,11 +10,11 @@ from bs4 import BeautifulSoup
 
 bot = commands.Bot(command_prefix="/",intents=discord.Intents.all())
 
-URL = r"https://"
+URL = r"https://lohaco.yahoo.co.jp/coupon/others/MTRhZjZkYjAyMDYwM2QyN2JjMWU2MzJlNTQw"
 url = re.compile(URL)
 
 # その送信者のIDを辞書に入れる
-is_matched = {'1012929515208577054'}
+is_matched = {}
 
 
 async def _check_url(message: discord.Message):
