@@ -27,7 +27,7 @@ async def _check_url(message: discord.Message):
         is_text[url_list[0]] = datetime.datetime.now()
         print(is_text)
     else:
-    print("空である")
+        print("空である")
 
 
 '''
