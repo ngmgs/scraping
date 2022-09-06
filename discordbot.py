@@ -20,7 +20,7 @@ is_text = {}
 
 async def _check_url(message: discord.Message):
     print(message.content)
-    is_text.get(message.content)
+    is_text[message.content] = datetime.datetime.now()
     print(is_text)
 
 
