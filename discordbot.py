@@ -17,6 +17,7 @@ pattern = "https?://[\w/:%#\$&\?\(\)~\.=\+\-]+"
 # その送信者のIDを辞書に入れる
 is_matched = {}
 is_text = {}
+url_list = {}
 
 
 async def _check_url(message: discord.Message):
