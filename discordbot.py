@@ -21,7 +21,10 @@ is_text = {}
 
 async def _check_url(message: discord.Message):
     url_list = re.findall(pattern, message.content)
-        
+    if url_list:
+        print("空ではない")
+    else:
+        print("空です")
     # もしメッセージにURLが含まれていたら
     if re.match(pattern, message.content):
         # もし辞書に同じURLが含まれていたら(含まれていなかったらNoneが返る)
