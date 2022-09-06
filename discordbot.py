@@ -32,10 +32,6 @@ async def _check_url(message: discord.Message):
                 await message.delete(delay=1)
                 await alert_msg.delete(delay=3)
 
-        else:
-            # 再起動時など、辞書が空の時に送信された場合、辞書を更新
-            is_matched[message.author.id] = datetime.datetime.now()
-
 
 @bot.event
 async def on_ready():
