@@ -21,7 +21,7 @@ is_text = {}
 
 async def _check_url(message: discord.Message):
     url_list = re.findall(pattern, message.content)
-    if url_list[0] is not None:
+    if re.match(pattern, message.content):
         print(message.content)
         print(url_list)
         is_text[url_list[0]] = datetime.datetime.now()
