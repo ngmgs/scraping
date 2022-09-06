@@ -12,7 +12,7 @@ bot = commands.Bot(command_prefix="/",intents=discord.Intents.all())
 
 URL = r"https://"
 url = re.compile(URL)
-pattern = "https?://[\w/:%#\$&\?\(\)~\.=\+\-]+"
+pattern = pattern = re.compile(r"https?://[\w/:%#\$&\?\(\)~\.=\+\-]+")
 
 # その送信者のIDを辞書に入れる
 is_matched = {}
@@ -21,7 +21,7 @@ is_text = {}
 
 async def _check_url(message: discord.Message):
     url_list = re.findall(pattern, message.content)
-    print(url_lits[0])
+    print(url_list[0])
     # もしメッセージにURLが含まれていたら
     if re.match(pattern, message.content):
         # もし辞書に同じURLが含まれていたら(含まれていなかったらNoneが返る)
