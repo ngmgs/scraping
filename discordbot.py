@@ -28,10 +28,10 @@ async def _check_url(message: discord.Message):
             # 送信されていた時間を取り出す
             _sent_date = is_text[url_list[0]]
             print(_sent_date)
-    else:
-        print("空である")
-        is_text[url_list[0]] = datetime.datetime.now()
-        print(is_text)
+        else:
+            print("空である")
+            is_text[url_list[0]] = datetime.datetime.now()
+            print(is_text)
 
 
 '''
