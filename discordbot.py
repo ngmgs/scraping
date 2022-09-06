@@ -26,6 +26,7 @@ is_text = {}
 async def _check_url(message: discord.Message):
     # もしメッセージにURLが含まれていたら
     if url.search(message.content) is not None:
+        print(is_matched)
         # もし辞書に送信者のIDが含まれていたら(含まれていなかったらNoneが返る)
         if is_matched.get(message.author.id, None) is not None:
             # 送信されていた時間を取り出す
