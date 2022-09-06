@@ -14,7 +14,7 @@ URL = r"https://"
 url = re.compile(URL)
 
 # その送信者のIDを辞書に入れる
-is_matched = {1012929515208577054}
+is_matched = {"1012929515208577054"}
 
 
 async def _check_url(message: discord.Message):
