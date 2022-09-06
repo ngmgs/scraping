@@ -1,6 +1,7 @@
 import discord
 import traceback
 import requests
+import re
 from discord.ext import commands
 from discord.ext import tasks
 from os import getenv
@@ -9,65 +10,44 @@ from bs4 import BeautifulSoup
 
 bot = commands.Bot(command_prefix="/",intents=discord.Intents.all())
 
+URL = r"https://"
+url = re.compile(URL)
 
-"""楽天から商品名と価格を取得
-def main():
-    url = requests.get(
-        "https://search.rakuten.co.jp/search/mall/%E3%83%9F%E3%83%83%E3%82%AF%E3%82%B9%E3%83%8A%E3%83%83%E3%83%84/").content
-    soup = BeautifulSoup(url)
-    #print(url)
-    for item in soup.find_all(class_="dui-card searchresultitem"): #商品の親要素divをクラス名で取得
-        print("#" * 50)
-        #print(item.find("a", attrs={"data-track-trigger": "title", "target": "_top"}).text)
-        #print(item.find(class_="important").text)
-        title = item.find("a", attrs={"data-track-trigger": "title", "target": "_top"}).get("title") #itemからaタグのtitleで商品名を取得
-        price = item.find(class_="important").text #itemからクラス名で価格を取得
-        if title is None:
-            continue
-        print("-" * 50)
-        print(title)
-        print("-" * 50)
-        print(price)
-        
-"""
-
-#PC4Uからグラボの商品名と価格を取得
-def main():
-    url = requests.get(
-        "https://www.pc4u.co.jp/shopbrand/graphics/").content
-    soup = BeautifulSoup(url)
-    #print(url)
-    for item in soup.find_all(class_="innerBox"): #商品の親要素divをクラス名で取得
-        print("#" * 50)
-        #print(item.find("a", attrs={"data-track-trigger": "title", "target": "_top"}).text)
-        #print(item.find(class_="important").text)
-        title = item.find(class_="name").text #itemからクラス名で商品名を取得
-        price = item.find(class_="price").text #itemからクラス名で価格を取得
-        if title is None:
-            continue
-        print("-" * 50)
-        print(title)
-        print("-" * 50)
-        print(price)
+# その送信者のIDを辞書に入れる
+is_matched = {1012929515208577054}
 
 
-if __name__ == "__main__":
-    main()
+async def _check_url(message: discord.Message):
+    # もしメッセージにURLが含まれていたら
+    if url.search(message.content) is not None:
+        # もし辞書に送信者のIDが含まれていたら(含まれていなかったらNoneが返る)
+        if is_matched.get(message.author.id, None) is not None:
+            # 送信されていた時間を取り出す
+            _sent_date = is_matched[message.author.id]
+            # もし差分が3600秒以上(1h)なら、送信された時間を更新して終了
+            if (datetime.datetime.now() - _sent_date).seconds >= 3600:
+                is_matched[message.author.id] = datetime.datetime.now()
+                return
 
+            else:
+                # 1h以内に投稿されていた場合削除
+                alert_msg = await message.channel.send("そのURLが入ったメッセージが1時間以内に投稿されています。削除します。")
+                await message.delete(delay=1)
+                await alert_msg.delete(delay=3)
+
+        else:
+            # 再起動時など、辞書が空の時に送信された場合、辞書を更新
+            is_matched[message.author.id] = datetime.datetime.now()
 
 
 @bot.event
-async def on_command_error(ctx, error):
-    orig_error = getattr(error, "original", error)
-    error_msg = ''.join(traceback.TracebackException.from_exception(orig_error).format())
-    await ctx.send(error_msg)
-    
+async def on_ready():
+    print(bot.user.name)
 
-@bot.command()
-async def ping(ctx):
-    await ctx.send(discord.__version__)
-    
-    
+
+@bot.event
+async def on_message(message: discord.Message):
+    await _check_url(message)
 
 token = getenv('DISCORD_BOT_TOKEN')
 bot.run(token)
