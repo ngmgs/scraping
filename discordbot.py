@@ -18,13 +18,14 @@ is_matched = {}
 
 
 async def _check_url(message: discord.Message):
-    print(message.content)
+    print(is_matched)
     # もしメッセージにURLが含まれていたら
     if url.search(message.content) is not None:
         # もし辞書に送信者のIDが含まれていたら(含まれていなかったらNoneが返る)
         if is_matched.get(message.author.id, None) is not None:
             # 送信されていた時間を取り出す
             _sent_date = is_matched[message.author.id]
+            print(_sent_date)
             # もし差分が3600秒以上(1h)なら、送信された時間を更新して終了
             if (datetime.datetime.now() - _sent_date).seconds >= 3600:
                 is_matched[message.author.id] = datetime.datetime.now()
