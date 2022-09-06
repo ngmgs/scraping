@@ -28,7 +28,7 @@ async def _check_url(message: discord.Message):
         if is_text.get(url_list[0], None) is not None:
             # 送信されていた時間を取り出す
             _sent_date = is_text[url_list[0]]
-            print("a" + _sent_date)
+            print("a" + str(_sent_date))
             # もし差分が3600秒以上(1h)なら
             if (datetime.datetime.now() - _sent_date).seconds >= 3600:
                 # 辞書のURLが持つ発言時間を更新して終了
