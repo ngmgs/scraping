@@ -19,18 +19,10 @@ is_matched = {}
 is_text = {}
 
 
-async def _check_url(message: discord.Message):
-    url_list = re.findall(pattern, message.content)
-    if re.match(pattern, message.content):
-        print(message.content)
-        print(url_list)
-        is_text[url_list[0]] = datetime.datetime.now()
-        print(is_text)
-    else:
-        print("空である")
 
 
-'''
+
+
 async def _check_url(message: discord.Message):
     # もしメッセージにURLが含まれていたら
     if url.search(message.content) is not None:
@@ -41,6 +33,7 @@ async def _check_url(message: discord.Message):
             # もし差分が3600秒以上(1h)なら、送信された時間を更新して終了
             if (datetime.datetime.now() - _sent_date).seconds >= 3600:
                 is_matched[message.author.id] = datetime.datetime.now()
+                print(is_matched)
                 return
 
             else:
@@ -52,7 +45,7 @@ async def _check_url(message: discord.Message):
         else:
             # 再起動時など、辞書が空の時に送信された場合、辞書を更新
             is_matched[message.author.id] = datetime.datetime.now()
-'''
+
 
 
 @bot.event
