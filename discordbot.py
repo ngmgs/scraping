@@ -24,7 +24,7 @@ async def _check_url(message: discord.Message):
     url_list = re.findall(pattern, message.content)
     print(url_list)
     is_text[message.content] = datetime.datetime.now()
-    print(is_test)
+    print(is_text)
 
 
 '''
