@@ -23,13 +23,15 @@ async def _check_url(message: discord.Message):
     url_list = re.findall(pattern, message.content)
     # もしメッセージにURLが含まれていたら
     if url_list:
-        # もし辞書に同じURLが含まれていたら(含まれていなかったらNoneが返る)
+        # もし辞書にURLが登録されていたら(含まれていなかったらNoneが返る)
         if is_text.get(url_list[0], None) is not None:
             # 送信されていた時間を取り出す
             _sent_date = is_text[url_list[0]]
             print(_sent_date)
-            # もし差分が3600秒以上(1h)なら、送信された時間を更新して終了
+            # もし差分が3600秒以上(1h)なら
             if (datetime.datetime.now() - _sent_date).seconds >= 3600:
+                # 辞書のURLが持つ発言時間を更新して終了
+                print("辞書のURLが持つ発言時間を更新")
                 is_text[url_list[0]] = datetime.datetime.now()
                 return
             else:
@@ -38,7 +40,8 @@ async def _check_url(message: discord.Message):
                 await message.delete(delay=1)
                 await alert_msg.delete(delay=3)
         else:
-            print("空である")
+            # 辞書にURLが登録されていなかったのでURLと発言時間を登録する
+            print("辞書にURLと発言時間を登録")
             is_text[url_list[0]] = datetime.datetime.now()
             print(is_text)
 
