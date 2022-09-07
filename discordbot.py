@@ -20,6 +20,9 @@ is_text = {}
 
 
 async def _check_url(message: discord.Message):
+    if message.author.bot:
+        return
+    # メッセージからURLを抽出
     url_list = re.findall(pattern, message.content)
     # もしメッセージにURLが含まれていたら
     if url_list:
