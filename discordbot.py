@@ -26,6 +26,7 @@ async def _check_url(message: discord.Message):
     url_list = re.findall(pattern, message.content)
     # もしメッセージにURLが含まれていたら
     if url_list:
+        print("#" * 50)
         print("1時間以内に同じURLを送信したら削除する")
         # もし辞書にURLが登録されていたら(含まれていなかったらNoneが返る)
         if is_text.get(url_list[0], None) is not None:
