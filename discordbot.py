@@ -26,8 +26,9 @@ async def _check_url(message: discord.Message):
     global send_time
     # もしメッセージにURLが含まれていたら
     if url.search(message.content) is not None:
+	
         if send_time is not None:
-	    _now = datetime.datetime.now()
+			_now = datetime.datetime.now()
 				
 	    # メッセージが1時間以内に送信されていたら		        
 	    if (_now - send_time).seconds < 3600:
