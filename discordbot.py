@@ -35,12 +35,13 @@ async def _check_url(message: discord.Message):
             # もし差分が3600秒以上(1h)なら
             if (datetime.datetime.now() - _sent_date).seconds >= 3600:
                 # 辞書のURLが持つ発言時間を更新して終了
-                print("辞書のURLが持つ発言時間を更新")
+                print("辞書のURL(" + url_list[0] + ")が持つ発言時間を更新")
                 is_text[url_list[0]] = datetime.datetime.now()
                 return
             else:
                 # 1h以内に投稿されていた場合削除
-                print("そのURLが入ったメッセージが1時間以内に投稿されています。削除します。")
+                print(url_list[0])
+                print("そのURL(" + url_list[0] + ")が入ったメッセージが1時間以内に投稿されています。削除します。")
                 alert_msg = await message.channel.send("そのURLが入ったメッセージが1時間以内に投稿されています。削除します。")
                 await message.delete(delay=1)
                 await alert_msg.delete(delay=3)
