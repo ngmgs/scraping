@@ -28,7 +28,7 @@ async def _check_url(message: discord.Message):
     if url.search(message.content) is not None:
         
         if send_time is not None:
-			_now = datetime.datetime.now()
+            _now = datetime.datetime.now()
          # メッセージが1時間以内に送信されていたら
         if (_now - send_time).seconds < 3600:
             alert_msg = await message.channel.send("そのURLが入ったメッセージが1時間以内に投稿されています。削除します。")
