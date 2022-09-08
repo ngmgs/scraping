@@ -41,9 +41,6 @@ async def _check_url(message: discord.Message):
                 # 辞書のURLが持つ発言時間を更新して終了
                 print("辞書のURL(" + url_list[0] + ")が持つ発言時間を更新")
                 is_text[url_list[0]] = datetime.now()
-                # 発言したメンバーに役職kagiを付与
-                await member.add_roles(role, atomic=True)
-                return
             else:
                 # 1h以内に投稿されていた場合削除
                 print(url_list[0])
@@ -56,11 +53,12 @@ async def _check_url(message: discord.Message):
             # 辞書にURLが登録されていなかったのでURLと発言時間を登録する
             print("辞書にURLと発言時間を登録")
             is_text[url_list[0]] = datetime.now()
-            # 発言したメンバーに役職kagiを付与
-            await member.add_roles(role, atomic=True)
             print(is_text)
     else:
         print("メッセージにURLはない")
+        
+    # 発言したメンバーに役職kagiを付与
+    await member.add_roles(role, atomic=True)
 
 '''
 async def _check_url(message: discord.Message):
