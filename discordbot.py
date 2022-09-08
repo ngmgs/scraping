@@ -20,6 +20,7 @@ is_text = {}
 
 
 async def _check_url(message: discord.Message):
+    role = discord.utils.get(message.guild.roles, name="kagi")
     if message.author.bot:
         return
     # メッセージからURLを抽出
