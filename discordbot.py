@@ -67,7 +67,7 @@ def main():
         title = item.find(class_="name").text #itemからクラス名で商品名を取得
         price = item.find(class_="price").text #itemからクラス名で価格を取得
         is_pc4u[title] = price
-        print(is_pc4u[item])
+        print(is_pc4u[title])
         if title is None:
             continue
     #print(is_pc4u)
