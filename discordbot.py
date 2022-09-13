@@ -108,7 +108,9 @@ def main():
             print(title)
             print(is_pc4u[title])
             print(url)
-        
+            channel_sent.send(title)
+            channel_sent.send(is_pc4u[title])
+            channel_sent.send(url)
 
         
         if title is None:
