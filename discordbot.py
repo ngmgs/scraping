@@ -63,12 +63,18 @@ def main():
     soup = BeautifulSoup(url)
     #print(url)
     for item in soup.find_all(class_="innerBox"): #商品の親要素divをクラス名で取得
-        print("#" * 50)
         title = item.find(class_="name").text #itemからクラス名で商品名を取得
         price = item.find(class_="price").text #itemからクラス名で価格を取得
+        print("#" * 50)
+        
         is_pc4u[title] = price
-        print(title)
-        print(is_pc4u[title])
+        if is_pc4u[title] is Not None:
+            print("a")
+        else:
+            print("b")
+        
+
+        
         if title is None:
             continue
     #print(is_pc4u)
