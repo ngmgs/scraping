@@ -118,7 +118,7 @@ def main():
 if __name__ == "__main__":
     main()
 """
-@bot.event
+
 def main():
     channel_sent = bot.get_channel(1019194136349392916)
     channel_sent.send("a")
