@@ -67,13 +67,26 @@ def main():
         price = item.find(class_="price").text #itemからクラス名で価格を取得
         print("#" * 50)
         
-        
-        if is_pc4u.get(title) is not None:
-            print("a")
-            print(is_pc4u[title])
+        # もし辞書に商品が登録されていたら(含まれていなかったらNoneが返る)
+        if is_pc4u.get(title, None) is not None:
+            # 辞書に登録されている価格を取得
+            _sent_price = is_pc4u[title]
+            # もし辞書と現在の価格が違えば更新
+            if price != _sent_price:
+                is_pc4u[title] = price
+                print("価格が変更!!")
+                print(title)
+                print(is_pc4u[title])
+            # 価格が同じ場合
+            else:
+                print("価格に変更はない")
+                print(title)
+                print(is_pc4u[title])
+        # 辞書に商品が登録されていなかったので価格を登録する
         else:
-            print("b")
+            print("初回登録")
             is_pc4u[title] = price
+            print(title)
             print(is_pc4u[title])
         
 
