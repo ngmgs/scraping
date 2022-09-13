@@ -67,11 +67,14 @@ def main():
         price = item.find(class_="price").text #itemからクラス名で価格を取得
         print("#" * 50)
         
-        is_pc4u[title] = price
+        
         if is_pc4u[title] is not None:
             print("a")
+            print(is_pc4u[title])
         else:
             print("b")
+            is_pc4u[title] = price
+            print(is_pc4u[title])
         
 
         
