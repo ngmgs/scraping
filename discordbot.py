@@ -94,8 +94,9 @@ async def main():
                 print("価格が変更!!")
                 print(title)
                 print(is_pc4u[title])
-                channel_sent.send(title)
-                channel_sent.send(is_pc4u[title])
+                await channel_sent.send(title)
+                await channel_sent.send(is_pc4u[title])
+                await channel_sent.send(url)
             # 価格が同じ場合
             else:
                 print("価格に変更はない")
