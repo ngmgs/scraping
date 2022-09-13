@@ -106,7 +106,7 @@ def main():
             is_pc4u[title] = price
             print(title)
             print(is_pc4u[title])
-            print(url.get('href'))
+            print("https://www.pc4u.co.jp" + url.get('href'))
         
 
         
