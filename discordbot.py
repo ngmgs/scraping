@@ -77,6 +77,7 @@ def main():
         "https://www.pc4u.co.jp/shopbrand/pciexpress4/page1/price/").content
     soup = BeautifulSoup(url)
     #print(url)
+    await channel_sent.send("a")
     for item in soup.find_all(class_="innerBox"): #商品の親要素divをクラス名で取得
         title = item.find(class_="name").text #itemからクラス名で商品名を取得
         price = item.find(class_="price").text #itemからクラス名で価格を取得
