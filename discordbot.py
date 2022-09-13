@@ -119,9 +119,9 @@ if __name__ == "__main__":
     main()
 """
 @bot.event
-async def main():
+def main():
     channel_sent = bot.get_channel(1019194136349392916)
-    await channel_sent.send("a")
+    channel_sent.send("a")
 
 
 if __name__ == "__main__":
