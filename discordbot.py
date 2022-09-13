@@ -9,6 +9,19 @@ from bs4 import BeautifulSoup
 
 bot = commands.Bot(command_prefix="/",intents=discord.Intents.all())
 
+@tasks.loop(minutes=1)
+async def send_message_every():
+    channel_sent = bot.get_channel(1012237139729199136)
+    now = datetime.now().strftime('%A/%H:%M')
+    await channel_sent.send(now)
+    if now == 'Friday/19:00':
+        await channel_sent.send(now + "時間だよ")
+
+
+@bot.event
+async def on_ready():
+    send_message_every.start()
+
 
 """楽天から商品名と価格を取得
 def main():
