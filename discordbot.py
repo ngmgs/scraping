@@ -81,6 +81,7 @@ def main():
         title = item.find(class_="name").text #itemからクラス名で商品名を取得
         price = item.find(class_="price").text #itemからクラス名で価格を取得
         url_temp = item.find('a') #itemからクラス名で価格を取得
+        url = "https://www.pc4u.co.jp" + url_temp.get('href')
         print("#" * 50)
         
         # もし辞書に商品が登録されていたら(含まれていなかったらNoneが返る)
@@ -106,7 +107,7 @@ def main():
             is_pc4u[title] = price
             print(title)
             print(is_pc4u[title])
-            print("https://www.pc4u.co.jp" + url.get('href'))
+            print(url)
         
 
         
