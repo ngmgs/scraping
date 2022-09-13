@@ -68,7 +68,7 @@ def main():
         print("#" * 50)
         
         is_pc4u[title] = price
-        if is_pc4u[title] is Not None:
+        if is_pc4u[title] is not None:
             print("a")
         else:
             print("b")
