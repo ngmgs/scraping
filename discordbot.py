@@ -11,24 +11,17 @@ bot = commands.Bot(command_prefix="/",intents=discord.Intents.all())
 
 @tasks.loop(minutes=1)
 async def send_message_every():
-    channel_sent = bot.get_channel(1012237139729199136)
-    now = datetime.now().strftime('%A/%H:%M')
+    channel_sent = bot.get_channel(1019194136349392916)
+    t_delta = timedelta(hours=9)
+    JST = timezone(t_delta, 'JST')
+    now = datetime.now(JST).strftime('%A/%H:%M')
     await channel_sent.send("1分タスク" + now)
-    if now == 'Friday/19:00':
-        await channel_sent.send(now + "時間だよ")
-
-@tasks.loop(minutes=2)
-async def send_message_every2():
-    channel_sent = bot.get_channel(1012237139729199136)
-    now = datetime.now().strftime('%A/%H:%M')
-    await channel_sent.send("2分タスク" + now)
     if now == 'Friday/19:00':
         await channel_sent.send(now + "時間だよ")
 
 @bot.event
 async def on_ready():
     send_message_every.start()
-    send_message_every2.start()
 
 
 """楽天から商品名と価格を取得
