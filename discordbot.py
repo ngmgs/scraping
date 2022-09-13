@@ -67,11 +67,11 @@ def main():
 
 if __name__ == "__main__":
     main()
-"""
+
 
 is_pc4u = {}
 #PC4Uからグラボの商品名と価格を取得
-async def main():
+def main():
     channel_sent = bot.get_channel(1019194136349392916)
     url = requests.get(
         "https://www.pc4u.co.jp/shopbrand/pciexpress4/page1/price/").content
@@ -113,6 +113,14 @@ async def main():
             continue
     #print(is_pc4u)
 
+
+
+if __name__ == "__main__":
+    main()
+"""
+async def main():
+    channel_sent = bot.get_channel(1019194136349392916)
+    await channel_sent.send("a")
 
 
 if __name__ == "__main__":
