@@ -34,7 +34,7 @@ def main():
 #PC4Uからグラボの商品名と価格を取得
 def main():
     url = requests.get(
-        "https://www.pc4u.co.jp/shopbrand/graphics/").content
+        "https://www.pc4u.co.jp/shopbrand/pciexpress4/page1/price/").content
     soup = BeautifulSoup(url)
     #print(url)
     for item in soup.find_all(class_="innerBox"): #商品の親要素divをクラス名で取得
