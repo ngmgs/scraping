@@ -15,7 +15,7 @@ async def send_message_every():
     t_delta = timedelta(hours=9)
     JST = timezone(t_delta, 'JST')
     now = datetime.now(JST).strftime('%A/%H:%M')
-    await channel_sent.send("1分タスク" + now)
+    # await channel_sent.send("1分タスク" + now)
     if now == 'Friday/19:00':
         await channel_sent.send(now + "時間だよ")
 
@@ -72,6 +72,7 @@ if __name__ == "__main__":
 is_pc4u = {}
 #PC4Uからグラボの商品名と価格を取得
 def main():
+    channel_sent = bot.get_channel(1019194136349392916)
     url = requests.get(
         "https://www.pc4u.co.jp/shopbrand/pciexpress4/page1/price/").content
     soup = BeautifulSoup(url)
@@ -79,6 +80,7 @@ def main():
     for item in soup.find_all(class_="innerBox"): #商品の親要素divをクラス名で取得
         title = item.find(class_="name").text #itemからクラス名で商品名を取得
         price = item.find(class_="price").text #itemからクラス名で価格を取得
+        url = item.find('a').text #itemからクラス名で価格を取得
         print("#" * 50)
         
         # もし辞書に商品が登録されていたら(含まれていなかったらNoneが返る)
@@ -91,6 +93,8 @@ def main():
                 print("価格が変更!!")
                 print(title)
                 print(is_pc4u[title])
+                await channel_sent.send(title)
+                await channel_sent.send(is_pc4u[title])
             # 価格が同じ場合
             else:
                 print("価格に変更はない")
@@ -102,6 +106,7 @@ def main():
             is_pc4u[title] = price
             print(title)
             print(is_pc4u[title])
+            print(url.get('href'))
         
 
         
