@@ -29,7 +29,7 @@ def main():
         print("-" * 50)
         print(price)
         
-"""
+
 
 #PC4Uからグラボの商品名と価格を取得
 def main():
@@ -53,7 +53,28 @@ def main():
 
 if __name__ == "__main__":
     main()
+"""
 
+is_pc4u = {}
+#PC4Uからグラボの商品名と価格を取得
+def main():
+    url = requests.get(
+        "https://www.pc4u.co.jp/shopbrand/pciexpress4/page1/price/").content
+    soup = BeautifulSoup(url)
+    #print(url)
+    for item in soup.find_all(class_="innerBox"): #商品の親要素divをクラス名で取得
+        print("#" * 50)
+        title = item.find(class_="name").text #itemからクラス名で商品名を取得
+        price = item.find(class_="price").text #itemからクラス名で価格を取得
+        is_pc4u[title] = price        
+        if title is None:
+            continue
+    print(is_pc4u)
+
+
+
+if __name__ == "__main__":
+    main()
 
 
 @bot.event
