@@ -8,7 +8,7 @@ from datetime import datetime, timezone, timedelta, time
 from bs4 import BeautifulSoup
 
 bot = commands.Bot(command_prefix="/",intents=discord.Intents.all())
-
+'''
 @tasks.loop(minutes=1)
 async def send_message_every():
     channel_sent = bot.get_channel(1019194136349392916)
@@ -22,7 +22,7 @@ async def send_message_every():
 @bot.event
 async def on_ready():
     send_message_every.start()
-
+'''
 
 """楽天から商品名と価格を取得
 def main():
@@ -118,7 +118,7 @@ def main():
 if __name__ == "__main__":
     main()
 """
-
+@bot.event
 async def mainmain():
     channel_sent1 = bot.get_channel(1012237139729199136)
     print(channel_sent1)
