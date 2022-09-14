@@ -124,7 +124,8 @@ async def mainmain():
     print(channel_sent1)
     await channel_sent1.send('a')
 
-
+if __name__ == "__main__":
+    await main()
 
 
 @bot.event
