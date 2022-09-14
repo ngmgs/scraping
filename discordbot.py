@@ -149,11 +149,13 @@ async def main():
                 await channel_sent.send(is_pc4u[title])
                 await channel_sent.send(url)
             # 価格が同じ場合
+            '''
             else:
-                # print("価格に変更はない")
-                # print(title)
-                # print(is_pc4u[title])
-                # print(url)
+                print("価格に変更はない")
+                print(title)
+                print(is_pc4u[title])
+                print(url)
+            '''
         # 辞書に商品が登録されていなかったので価格を登録する
         else:
             print("初回登録")            
