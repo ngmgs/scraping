@@ -125,8 +125,6 @@ def main():
     channel_sent1.send("a")
 
 
-if __name__ == "__main__":
-    main()
 
 
 @bot.event
