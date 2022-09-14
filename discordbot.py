@@ -153,7 +153,7 @@ async def main():
         # 辞書に商品が登録されていなかったので価格を登録する
         else:
             print("初回登録")
-            await channel_sent1.send('a')
+            await channel_sent.send('a')
             is_pc4u[title] = price
             print(title)
             print(is_pc4u[title])
