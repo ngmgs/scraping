@@ -8,13 +8,14 @@ from datetime import datetime, timezone, timedelta, time
 from bs4 import BeautifulSoup
 
 bot = commands.Bot(command_prefix="/",intents=discord.Intents.all())
-'''
+
 @tasks.loop(minutes=1)
 async def send_message_every():
     channel_sent = bot.get_channel(1019194136349392916)
     t_delta = timedelta(hours=9)
     JST = timezone(t_delta, 'JST')
     now = datetime.now(JST).strftime('%A/%H:%M')
+    await main()
     # await channel_sent.send("1分タスク" + now)
     if now == 'Friday/19:00':
         await channel_sent.send(now + "時間だよ")
@@ -22,7 +23,7 @@ async def send_message_every():
 @bot.event
 async def on_ready():
     send_message_every.start()
-'''
+
 
 """楽天から商品名と価格を取得
 def main():
@@ -127,7 +128,7 @@ async def main():
         "https://www.pc4u.co.jp/shopbrand/pciexpress4/page1/price/").content
     soup = BeautifulSoup(url)
     #print(url)
-    await channel_sent.send("a")
+    await channel_sent.send("pc4u")
     for item in soup.find_all(class_="innerBox"): #商品の親要素divをクラス名で取得
         title = item.find(class_="name").text #itemからクラス名で商品名を取得
         price = item.find(class_="price").text #itemからクラス名で価格を取得
@@ -152,8 +153,7 @@ async def main():
                 print(is_pc4u[title])
         # 辞書に商品が登録されていなかったので価格を登録する
         else:
-            print("初回登録")
-            await channel_sent.send('a')
+            print("初回登録")            
             is_pc4u[title] = price
             print(title)
             print(is_pc4u[title])
