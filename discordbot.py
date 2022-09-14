@@ -119,7 +119,7 @@ if __name__ == "__main__":
     main()
 """
 
-async def main():
+async def mainmain():
     channel_sent1 = bot.get_channel(1012237139729199136)
     print(channel_sent1)
     await channel_sent1.send("a")
@@ -136,7 +136,7 @@ async def on_command_error(ctx, error):
 
 @bot.command()
 async def ping(ctx):
-    main()
+    mainmain()
     
     
 
