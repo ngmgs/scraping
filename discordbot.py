@@ -122,7 +122,7 @@ if __name__ == "__main__":
 async def mainmain():
     channel_sent1 = bot.get_channel(1012237139729199136)
     print(channel_sent1)
-    await channel_sent1.send("a")
+    await channel_sent1.send('a')
 
 
 
