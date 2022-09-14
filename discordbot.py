@@ -126,21 +126,21 @@ async def main():
         "https://www.pc4u.co.jp/shopbrand/pciexpress4/page1/price/").content
     soup = BeautifulSoup(url)
     #print(url)
-    await channel_sent.send("pc4u")
+    # await channel_sent.send("pc4u")
     for item in soup.find_all(class_="innerBox"): #商品の親要素divをクラス名で取得
         title = item.find(class_="name").text #itemからクラス名で商品名を取得
         price = item.find(class_="price").text #itemからクラス名で価格を取得
         url_temp = item.find('a') #itemからクラス名で価格を取得
         url = "https://www.pc4u.co.jp" + url_temp.get('href')
-        print("#" * 50)
+        
         
         # もし辞書に商品が登録されていたら(含まれていなかったらNoneが返る)
         if is_pc4u.get(title, None) is not None:
             # 辞書に登録されている価格を取得
             _sent_price = is_pc4u[title]
-            # もし辞書と現在の価格が違えば更新
             if price != _sent_price:
                 is_pc4u[title] = price
+                print("#" * 50)
                 print("価格が変更!!")
                 print(title)
                 print(is_pc4u[title])
@@ -158,8 +158,10 @@ async def main():
             '''
         # 辞書に商品が登録されていなかったので価格を登録する
         else:
-            print("初回登録")            
             is_pc4u[title] = price
+            # もし辞書と現在の価格が違えば更新
+            print("#" * 50)
+            print("初回登録")
             print(title)
             print(is_pc4u[title])
             print(url)
