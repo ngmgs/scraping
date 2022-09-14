@@ -16,9 +16,7 @@ async def send_message_every():
     JST = timezone(t_delta, 'JST')
     now = datetime.now(JST).strftime('%A/%H:%M')
     await main()
-    # await channel_sent.send("1分タスク" + now)
-    if now == 'Friday/19:00':
-        await channel_sent.send(now + "時間だよ")
+
 
 @bot.event
 async def on_ready():
@@ -146,11 +144,16 @@ async def main():
                 print("価格が変更!!")
                 print(title)
                 print(is_pc4u[title])
+                print(url)
+                await channel_sent.send(title)
+                await channel_sent.send(is_pc4u[title])
+                await channel_sent.send(url)
             # 価格が同じ場合
             else:
-                print("価格に変更はない")
-                print(title)
-                print(is_pc4u[title])
+                # print("価格に変更はない")
+                # print(title)
+                # print(is_pc4u[title])
+                # print(url)
         # 辞書に商品が登録されていなかったので価格を登録する
         else:
             print("初回登録")            
