@@ -136,7 +136,7 @@ async def on_command_error(ctx, error):
 
 @bot.command()
 async def ping(ctx):
-    mainmain()
+    await mainmain()
     
     
 
