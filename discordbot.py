@@ -121,7 +121,7 @@ if __name__ == "__main__":
 
 def main():
     channel_sent1 = bot.get_channel(1012237139729199136)
-    print(channnel_sent1)
+    print(channel_sent1)
     channel_sent1.send("a")
 
 
