@@ -120,8 +120,9 @@ if __name__ == "__main__":
 """
 
 def main():
-    channel_sent = bot.get_channel(1012237139729199136)
-    channel_sent.send("a")
+    channel_sent1 = bot.get_channel(1012237139729199136)
+    print(channnel_sent1)
+    channel_sent1.send("a")
 
 
 if __name__ == "__main__":
