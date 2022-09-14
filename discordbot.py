@@ -119,10 +119,50 @@ if __name__ == "__main__":
     main()
 """
 
+is_pc4u = {}
+#PC4Uからグラボの商品名と価格を取得
 async def main():
-    channel_sent1 = bot.get_channel(1012237139729199136)
-    print(channel_sent1)
-    await channel_sent1.send('a')
+    channel_sent = bot.get_channel(1019194136349392916)
+    url = requests.get(
+        "https://www.pc4u.co.jp/shopbrand/pciexpress4/page1/price/").content
+    soup = BeautifulSoup(url)
+    #print(url)
+    await channel_sent.send("a")
+    for item in soup.find_all(class_="innerBox"): #商品の親要素divをクラス名で取得
+        title = item.find(class_="name").text #itemからクラス名で商品名を取得
+        price = item.find(class_="price").text #itemからクラス名で価格を取得
+        url_temp = item.find('a') #itemからクラス名で価格を取得
+        url = "https://www.pc4u.co.jp" + url_temp.get('href')
+        print("#" * 50)
+        
+        # もし辞書に商品が登録されていたら(含まれていなかったらNoneが返る)
+        if is_pc4u.get(title, None) is not None:
+            # 辞書に登録されている価格を取得
+            _sent_price = is_pc4u[title]
+            # もし辞書と現在の価格が違えば更新
+            if price != _sent_price:
+                is_pc4u[title] = price
+                print("価格が変更!!")
+                print(title)
+                print(is_pc4u[title])
+            # 価格が同じ場合
+            else:
+                print("価格に変更はない")
+                print(title)
+                print(is_pc4u[title])
+        # 辞書に商品が登録されていなかったので価格を登録する
+        else:
+            print("初回登録")
+            await channel_sent1.send('a')
+            is_pc4u[title] = price
+            print(title)
+            print(is_pc4u[title])
+            print(url)
+
+        
+        if title is None:
+            continue
+    #print(is_pc4u)
 
 
 @bot.event
