@@ -36,8 +36,8 @@ async def pc4u_amd():
     channel_sent = bot.get_channel(1019194136349392916)
     url = requests.get(
         "https://www.pc4u.co.jp/shopbrand/pciexpress4/page1/price/").content
-    soup = BeautifulSoup(url)
-    #print(url, 'html.parser')
+    soup = BeautifulSoup(url, 'html.parser')
+    #print(url)
     # await channel_sent.send("pc4u")
     for item in soup.find_all(class_="innerBox"): #商品の親要素divをクラス名で取得
         title = item.find(class_="name").text #itemからクラス名で商品名を取得
@@ -71,13 +71,14 @@ async def pc4u_amd():
             '''
         # 辞書に商品が登録されていなかったので価格を登録する
         else:            
-            is_pc4u_amd[title] = price            
+            is_pc4u_amd[title] = price
+            '''
             print("#" * 50)
             print("初回登録")
             print(title)
             print(is_pc4u_amd[title])
             print(url)
-            
+            '''
 
         if title is None:
             continue
@@ -123,12 +124,14 @@ async def pc4u_nvidia():
             '''
         # 辞書に商品が登録されていなかったので価格を登録する
         else:
-            is_pc4u_nvidia[title] = price            
+            is_pc4u_nvidia[title] = price
+            '''
             print("#" * 50)
             print("初回登録")
             print(title)
             print(is_pc4u_nvidia[title])
             print(url)
+            '''
 
 
         if title is None:
