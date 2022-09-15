@@ -37,7 +37,7 @@ async def pc4u_amd():
     url = requests.get(
         "https://www.pc4u.co.jp/shopbrand/pciexpress4/page1/price/").content
     soup = BeautifulSoup(url)
-    #print(url)
+    #print(url, 'html.parser')
     # await channel_sent.send("pc4u")
     for item in soup.find_all(class_="innerBox"): #商品の親要素divをクラス名で取得
         title = item.find(class_="name").text #itemからクラス名で商品名を取得
@@ -88,7 +88,7 @@ async def pc4u_nvidia():
     channel_sent = bot.get_channel(1019194136349392916)
     url = requests.get(
         "https://www.pc4u.co.jp/shopbrand/ct1850/page1/price/").content
-    soup = BeautifulSoup(url)
+    soup = BeautifulSoup(url, 'html.parser')
     #print(url)
     # await channel_sent.send("pc4u")
     for item in soup.find_all(class_="innerBox"): #商品の親要素divをクラス名で取得
