@@ -32,6 +32,9 @@ async def on_message(message):
     
     is_message2[member.name] = {'timestamp': now, 'content': message.content}
     print(is_message2)
+    print(is_message2[member])
+    print(is_message2[member][timestamp])
+    print(is_message2[member][content])
 
 
     
