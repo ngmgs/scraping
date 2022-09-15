@@ -14,6 +14,7 @@ is_pc4u_nvidia = {}
 
 
 is_message = {}
+is_message2 = {}
 results = defaultdict(list)
 @bot.event
 async def on_message(message):
@@ -28,6 +29,9 @@ async def on_message(message):
     results[member.name].append(now)
     results[member.name].append(message.content)
     print(results.items())
+    
+    is_message2[member.name] = {'timestamp': now, 'content': message.content}
+    print(is_message2)
 
 
     
