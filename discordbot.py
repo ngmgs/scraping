@@ -6,6 +6,7 @@ from discord.ext import tasks
 from os import getenv
 from datetime import datetime, timezone, timedelta, time
 from bs4 import BeautifulSoup
+from collections import defaultdict
 
 bot = commands.Bot(command_prefix="/",intents=discord.Intents.all())
 is_pc4u_amd = {}
@@ -13,6 +14,7 @@ is_pc4u_nvidia = {}
 
 
 is_message = {}
+results = defaultdict(list)
 @bot.event
 async def on_message(message):
     t_delta = timedelta(hours=9)
@@ -22,6 +24,8 @@ async def on_message(message):
     is_message[member.name] = now
     print(is_message)
     print(message.content)
+    results[member].append(now)
+    print(results)
 
     
 @tasks.loop(minutes=1)
