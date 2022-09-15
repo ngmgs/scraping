@@ -72,14 +72,12 @@ async def pc4u_amd():
         # 辞書に商品が登録されていなかったので価格を登録する
         else:            
             is_pc4u_amd[title] = price            
-            '''
             print("#" * 50)
             print("初回登録")
             print(title)
             print(is_pc4u_amd[title])
             print(url)
-            '''
-
+            
 
         if title is None:
             continue
@@ -125,14 +123,12 @@ async def pc4u_nvidia():
             '''
         # 辞書に商品が登録されていなかったので価格を登録する
         else:
-            is_pc4u_nvidia[title] = price
-            '''
+            is_pc4u_nvidia[title] = price            
             print("#" * 50)
             print("初回登録")
             print(title)
             print(is_pc4u_nvidia[title])
             print(url)
-            '''
 
 
         if title is None:
