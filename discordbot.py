@@ -19,9 +19,7 @@ async def on_message(message):
     now = datetime.now(JST).strftime('%A/%H:%M')
     is_messagge[message] = now
     print(is_message)
-    
-    user = message.author.username
-    print(user)
+
 
     
 @tasks.loop(minutes=1)
