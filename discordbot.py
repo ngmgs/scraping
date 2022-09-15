@@ -18,11 +18,10 @@ async def on_message(message):
     t_delta = timedelta(hours=9)
     JST = timezone(t_delta, 'JST')
     now = datetime.now(JST).strftime('%A/%H:%M')
-    is_message[message] = now
-    print(is_message)
-
     member = message.author
-    print(member)
+    is_message[member] = now
+    print(is_message)
+    print(message.content)
 
     
 @tasks.loop(minutes=1)
