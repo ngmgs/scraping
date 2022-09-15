@@ -24,8 +24,8 @@ async def on_message(message):
     is_message[member.name] = now
     print(is_message)
     print(message.content)
-    results[member].append(now)
-    print(results)
+    results[member.name].append(now)
+    print(results[0][0])
 
     
 @tasks.loop(minutes=1)
