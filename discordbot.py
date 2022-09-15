@@ -78,7 +78,7 @@ async def pc4u_amd():
         if title is None:
             continue
     #print(is_pc4u_amd)
-'''
+
 #PC4Uからnvidiaグラボの商品名と価格を取得
 async def pc4u_nvidia():
     channel_sent = bot.get_channel(1019194136349392916)
@@ -130,7 +130,7 @@ async def pc4u_nvidia():
         if title is None:
             continue
     #print(is_pc4u_nvidia)
-'''
+
 
 @bot.event
 async def on_command_error(ctx, error):
