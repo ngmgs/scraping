@@ -4,7 +4,7 @@ import requests
 from discord.ext import commands
 from discord.ext import tasks
 from os import getenv
-from datetime import datetime, timezone, timedelta, time
+from datetime import datetime, timezone, timedelta, time as t
 from bs4 import BeautifulSoup
 
 bot = commands.Bot(command_prefix="/",intents=discord.Intents.all())
@@ -38,7 +38,7 @@ async def send_message_every():
     JST = timezone(t_delta, 'JST')
     now = datetime.now(JST).strftime('%A/%H:%M')
     await pc4u_amd()
-    time.sleep(5)
+    t.sleep(5)
     await pc4u_nvidia()
 
 
@@ -166,7 +166,7 @@ async def on_command_error(ctx, error):
 @bot.command()
 async def ping(ctx):
     await pc4u_amd()
-    time.sleep(5)
+    t.sleep(5)
     await pc4u_nvidia()
 
 
