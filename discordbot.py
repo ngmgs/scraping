@@ -11,6 +11,13 @@ bot = commands.Bot(command_prefix="/",intents=discord.Intents.all())
 is_pc4u_amd = {}
 is_pc4u_nvidia = {}
 
+is_message = {}
+@bot.event
+async def on_message(message):
+    now = datetime.now(JST).strftime('%A/%H:%M')
+    is_messagge[message] = now
+    print(is_message)
+
 @tasks.loop(minutes=1)
 async def send_message_every():
     channel_sent = bot.get_channel(1019194136349392916)
