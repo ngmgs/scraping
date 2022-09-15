@@ -6,7 +6,6 @@ from discord.ext import tasks
 from os import getenv
 from datetime import datetime, timezone, timedelta, time
 from bs4 import BeautifulSoup
-from collections import defaultdict
 
 bot = commands.Bot(command_prefix="/",intents=discord.Intents.all())
 is_pc4u_amd = {}
@@ -15,7 +14,6 @@ is_pc4u_nvidia = {}
 
 is_message = {}
 is_message2 = {}
-results = defaultdict(list)
 @bot.event
 async def on_message(message):
     t_delta = timedelta(hours=9)
@@ -26,16 +24,11 @@ async def on_message(message):
     print(is_message)
     print(message.content)
     
-    results[member.name].append(now)
-    results[member.name].append(message.content)
-    print(results.items())
-    
     is_message2[member.name] = {'timestamp': now, 'content': message.content}
     print(is_message2)
     print(is_message2[member.name])
     print(is_message2[member.name]['timestamp'])
     print(is_message2[member.name]['content'])
-
 
     
 @tasks.loop(minutes=1)
@@ -45,6 +38,7 @@ async def send_message_every():
     JST = timezone(t_delta, 'JST')
     now = datetime.now(JST).strftime('%A/%H:%M')
     await pc4u_amd()
+    time.sleep(5)
     await pc4u_nvidia()
 
 
@@ -172,6 +166,7 @@ async def on_command_error(ctx, error):
 @bot.command()
 async def ping(ctx):
     await pc4u_amd()
+    time.sleep(5)
     await pc4u_nvidia()
 
 
