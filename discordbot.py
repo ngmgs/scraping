@@ -19,7 +19,7 @@ async def on_message(message):
     JST = timezone(t_delta, 'JST')
     now = datetime.now(JST).strftime('%A/%H:%M')
     member = message.author
-    is_message[member] = now
+    is_message[member.name] = now
     print(is_message)
     print(message.content)
 
