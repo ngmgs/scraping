@@ -14,10 +14,16 @@ is_pc4u_nvidia = {}
 is_message = {}
 @bot.event
 async def on_message(message):
+    t_delta = timedelta(hours=9)
+    JST = timezone(t_delta, 'JST')
     now = datetime.now(JST).strftime('%A/%H:%M')
     is_messagge[message] = now
     print(is_message)
+    
+    user = message.author.username
+    print(user)
 
+    
 @tasks.loop(minutes=1)
 async def send_message_every():
     channel_sent = bot.get_channel(1019194136349392916)
@@ -53,6 +59,7 @@ async def pc4u_amd():
         if is_pc4u_amd.get(title, None) is not None:
             # 辞書に登録されている価格を取得
             _sent_price = is_pc4u_amd[title]
+            # もし辞書と現在の価格が違えば更新
             if price != _sent_price:
                 is_pc4u_amd[title] = price
                 print("#" * 50)
@@ -72,14 +79,15 @@ async def pc4u_amd():
                 print(url)
             '''
         # 辞書に商品が登録されていなかったので価格を登録する
-        else:
-            is_pc4u_amd[title] = price
-            # もし辞書と現在の価格が違えば更新
+        else:            
+            is_pc4u_amd[title] = price            
+            '''
             print("#" * 50)
             print("初回登録")
             print(title)
             print(is_pc4u_amd[title])
             print(url)
+            '''
 
 
         if title is None:
@@ -105,6 +113,7 @@ async def pc4u_nvidia():
         if is_pc4u_nvidia.get(title, None) is not None:
             # 辞書に登録されている価格を取得
             _sent_price = is_pc4u_nvidia[title]
+            # もし辞書と現在の価格が違えば更新
             if price != _sent_price:
                 is_pc4u_nvidia[title] = price
                 print("#" * 50)
@@ -126,12 +135,13 @@ async def pc4u_nvidia():
         # 辞書に商品が登録されていなかったので価格を登録する
         else:
             is_pc4u_nvidia[title] = price
-            # もし辞書と現在の価格が違えば更新
+            '''
             print("#" * 50)
             print("初回登録")
             print(title)
             print(is_pc4u_nvidia[title])
             print(url)
+            '''
 
 
         if title is None:
