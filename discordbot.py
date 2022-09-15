@@ -38,7 +38,7 @@ async def send_message_every():
     JST = timezone(t_delta, 'JST')
     now = datetime.now(JST).strftime('%A/%H:%M')
     await pc4u_amd()
-    sleep(5)
+    time.sleep(5)
     await pc4u_nvidia()
 
 
@@ -166,7 +166,7 @@ async def on_command_error(ctx, error):
 @bot.command()
 async def ping(ctx):
     await pc4u_amd()
-    sleep(5)
+    time.sleep(5)
     await pc4u_nvidia()
 
 
