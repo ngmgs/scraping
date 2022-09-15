@@ -11,14 +11,7 @@ bot = commands.Bot(command_prefix="/",intents=discord.Intents.all())
 is_pc4u_amd = {}
 is_pc4u_nvidia = {}
 
-is_message = {}
-@bot.event
-async def on_message(message):
-    t_delta = timedelta(hours=9)
-    JST = timezone(t_delta, 'JST')
-    now = datetime.now(JST).strftime('%A/%H:%M')
-    is_messagge[message] = now
-    print(is_message)
+
 
 
     
