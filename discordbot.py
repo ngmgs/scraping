@@ -24,8 +24,12 @@ async def on_message(message):
     is_message[member.name] = now
     print(is_message)
     print(message.content)
+    
     results[member.name].append(now)
     print(results.items())
+    
+    test = results[member.name].append(now)
+    print(test)
 
     
 @tasks.loop(minutes=1)
