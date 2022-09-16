@@ -27,14 +27,14 @@ async def on_message(message):
     print(is_message)
     print(message.content)
     print(message.content)
-    
+
     is_message2[member.name] = {'timestamp': now, 'content': message.content}
     print(is_message2)
     print(is_message2[member.name])
     print(is_message2[member.name]['timestamp'])
     print(is_message2[member.name]['content'])
 
-    
+
 @tasks.loop(minutes=1)
 async def send_message_every():
     channel_sent = bot.get_channel(1019194136349392916)
@@ -55,7 +55,7 @@ async def send_message_every():
 
 @bot.event
 async def on_ready():
-    send_message_every.start()
+    send_message_every.start()  # ループ処理開始
 
 
 
@@ -64,7 +64,7 @@ async def pc4u_get_vga(url, is_pc4u):
     channel_sent = bot.get_channel(1019194136349392916)
     res = requests.get(url).content
     soup = BeautifulSoup(res, 'html.parser')
-    url = soup.find(class_='next').find('a').get('href')
+    url = "https://www.pc4u.co.jp" + soup.find(class_='next').find('a').get('href')
     print(url)
     # await channel_sent.send("pc4u")
     for item in soup.find_all(class_="innerBox"): #商品の親要素divをクラス名で取得
