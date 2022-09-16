@@ -42,7 +42,8 @@ async def send_message_every():
     now = datetime.now(JST).strftime('%A/%H:%M')
     url = "https://www.pc4u.co.jp/shopbrand/pciexpress4/page1/price/"
     await pc4u_amd(url, is_pc4u_amd)
-    print(is_pc4u_amd)
+    print(is_pc4u_amd[0])
+    print(is_pc4u[0])
     t.sleep(5)
     await pc4u_nvidia()
 
