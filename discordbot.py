@@ -44,7 +44,7 @@ async def send_message_every():
     url = "https://www.pc4u.co.jp/shopbrand/pciexpress4/page1/price/"
     await pc4u_amd(url, is_pc4u_amd)
     print(next(iter(is_pc4u_amd)))
-    print(next(iter(is_pc4u)))
+    # print(next(iter(is_pc4u)))
     t.sleep(5)
     await pc4u_nvidia()
 
