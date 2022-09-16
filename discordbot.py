@@ -60,7 +60,7 @@ async def pc4u_amd():
     for item in soup.find_all(class_="innerBox"): #商品の親要素divをクラス名で取得
         title = item.find(class_="name").text #itemからクラス名で商品名を取得
         price = item.find(class_="price").text #itemからクラス名で価格を取得
-        stock = item.find(class_="btnWrap").select('img').get('alt') #itemからクラス名で品切れ情報を取得
+        stock = item.find(class_="btnWrap").find('img') #itemからクラス名で品切れ情報を取得
         url_temp = item.find('a') #itemからクラス名で価格を取得
         url = "https://www.pc4u.co.jp" + url_temp.get('href')
 
