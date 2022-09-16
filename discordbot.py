@@ -113,7 +113,10 @@ async def pc4u_get_vga(url, is_pc4u):
             continue
     #print(is_pc4u)
     #return is_pc4u
-    url_temp = soup.find(class_='next').find(text = '次の50件').get('href')
+    url_temp = soup.find(class_='next').find(text='次の50件')
+    print(url_temp)
+    
+    url_temp = soup.find(class_='next').find('a').get('href')
     url = "https://www.pc4u.co.jp" + url_temp
     print(url)
     if url is None:
