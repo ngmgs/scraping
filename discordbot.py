@@ -24,8 +24,8 @@ async def on_message(message):
     now = datetime.now(JST).strftime('%A/%H:%M')
     member = message.author
     is_message[member.name] = now
-    print(next(iter(is_pc4u_amd)))
-    print(next(iter(is_pc4u)))
+    print(is_message)
+    print(message.content)
     print(message.content)
     
     is_message2[member.name] = {'timestamp': now, 'content': message.content}
@@ -43,8 +43,8 @@ async def send_message_every():
     now = datetime.now(JST).strftime('%A/%H:%M')
     url = "https://www.pc4u.co.jp/shopbrand/pciexpress4/page1/price/"
     await pc4u_amd(url, is_pc4u_amd)
-    print(is_pc4u_amd)
-    # print(is_pc4u)
+    print(next(iter(is_pc4u_amd)))
+    print(next(iter(is_pc4u)))
     t.sleep(5)
     await pc4u_nvidia()
 
