@@ -43,11 +43,11 @@ async def send_message_every():
     now = datetime.now(JST).strftime('%A/%H:%M')
     url = "https://www.pc4u.co.jp/shopbrand/pciexpress4/page1/price/"
     await pc4u_amd(url, is_pc4u_amd)
-    print(list(is_pc4u_amd.keys())[0])
+    print(list(is_pc4u_amd.items())[0])
     t.sleep(5)
     url = "https://www.pc4u.co.jp/shopbrand/ct1850/page1/price/"
     await pc4u_amd(url, is_pc4u_nvidia)
-    print(list(is_pc4u_nvidia.keys())[0])
+    print(list(is_pc4u_nvidia.items())[0])
     
     # await pc4u_nvidia()
 
@@ -114,7 +114,7 @@ async def pc4u_amd(url, is_pc4u):
             continue
     #print(is_pc4u)
     #return is_pc4u
-
+"""
 #PC4Uからnvidiaグラボの商品名と価格を取得
 async def pc4u_nvidia():
     channel_sent = bot.get_channel(1019194136349392916)
@@ -168,7 +168,7 @@ async def pc4u_nvidia():
         if title is None:
             continue
     #print(is_pc4u_nvidia)
-
+"""
 
 @bot.event
 async def on_command_error(ctx, error):
