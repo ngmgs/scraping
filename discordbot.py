@@ -46,7 +46,11 @@ async def send_message_every():
     print(next(iter(is_pc4u_amd)))
     # print(next(iter(is_pc4u)))
     t.sleep(5)
-    await pc4u_nvidia()
+    url = "https://www.pc4u.co.jp/shopbrand/ct1850/page1/price/"
+    await pc4u_amd(url, is_pc4u_nvidia)
+    print(next(iter(is_pc4u_nvidia)))
+    
+    # await pc4u_nvidia()
 
 
 @bot.event
