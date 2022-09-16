@@ -42,11 +42,12 @@ async def send_message_every():
     JST = timezone(t_delta, 'JST')
     now = datetime.now(JST).strftime('%A/%H:%M')
     url = "https://www.pc4u.co.jp/shopbrand/pciexpress4/page1/price/"
-    await pc4u_amd(url, is_pc4u_amd)
+    print(now)
+    await pc4u_get_vga(url, is_pc4u_amd)
     print(list(is_pc4u_amd.items())[0])
     t.sleep(5)
     url = "https://www.pc4u.co.jp/shopbrand/ct1850/page1/price/"
-    await pc4u_amd(url, is_pc4u_nvidia)
+    await pc4u_get_vga(url, is_pc4u_nvidia)
     print(list(is_pc4u_nvidia.items())[0])
     
     # await pc4u_nvidia()
@@ -59,7 +60,7 @@ async def on_ready():
 
 
 #PC4Uからamdグラボの商品名と価格を取得
-async def pc4u_amd(url, is_pc4u):
+async def pc4u_get_vga(url, is_pc4u):
     channel_sent = bot.get_channel(1019194136349392916)
     res = requests.get(url).content
     soup = BeautifulSoup(res, 'html.parser')
