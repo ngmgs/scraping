@@ -57,7 +57,8 @@ async def pc4u_amd(url):
     channel_sent = bot.get_channel(1019194136349392916)
     res = requests.get(url).content
     soup = BeautifulSoup(res, 'html.parser')
-    #print(url)
+    url = soup.select_one("class_='price' > a").get("href")
+    print(url)
     # await channel_sent.send("pc4u")
     for item in soup.find_all(class_="innerBox"): #商品の親要素divをクラス名で取得
         title = item.find(class_="name").text #itemからクラス名で商品名を取得
@@ -93,18 +94,14 @@ async def pc4u_amd(url):
         # 辞書に商品が登録されていなかったので価格を登録する
         else:            
             is_pc4u_amd[title] = price
-            print("#" * 50)
-            print("初回登録")
-            print(title)
-            print(is_pc4u_amd[title])
-            print(url)
-            print(stock)
+
             '''
             print("#" * 50)
             print("初回登録")
             print(title)
             print(is_pc4u_amd[title])
             print(url)
+            print(stock)
             '''
 
         if title is None:
