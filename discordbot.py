@@ -57,7 +57,7 @@ async def pc4u_amd(url):
     channel_sent = bot.get_channel(1019194136349392916)
     res = requests.get(url).content
     soup = BeautifulSoup(res, 'html.parser')
-    url = soup.find(class_="price" > 'a')
+    url = soup.find(class_="next" > 'a')
     print(url)
     # await channel_sent.send("pc4u")
     for item in soup.find_all(class_="innerBox"): #商品の親要素divをクラス名で取得
