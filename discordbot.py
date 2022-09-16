@@ -12,7 +12,7 @@ bot = commands.Bot(command_prefix="/",intents=discord.Intents.all())
 
 @bot.command()
 async def ping(ctx):
-    base_url = 'https://www.pc4u.co.jp/shopbrand/pciexpress4/page1/price'
+    url = 'https://www.pc4u.co.jp/shopbrand/pciexpress4/page1/price'
     await pc4u_amd(url)
 
 def get_nextpage(soup):
