@@ -60,6 +60,7 @@ async def pc4u_amd():
     for item in soup.find_all(class_="innerBox"): #商品の親要素divをクラス名で取得
         title = item.find(class_="name").text #itemからクラス名で商品名を取得
         price = item.find(class_="price").text #itemからクラス名で価格を取得
+        stock = item.find(class_="btnWrap").text #itemからクラス名で品切れ情報を取得
         url_temp = item.find('a') #itemからクラス名で価格を取得
         url = "https://www.pc4u.co.jp" + url_temp.get('href')
 
@@ -90,6 +91,12 @@ async def pc4u_amd():
         # 辞書に商品が登録されていなかったので価格を登録する
         else:            
             is_pc4u_amd[title] = price
+            print("#" * 50)
+            print("初回登録")
+            print(title)
+            print(is_pc4u_amd[title])
+            print(url)
+            print(btnWrap)
             '''
             print("#" * 50)
             print("初回登録")
