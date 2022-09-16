@@ -109,7 +109,7 @@ async def pc4u_amd(url, is_pc4u):
         if title is None:
             continue
     #print(is_pc4u)
-    return is_pc4u
+    #return is_pc4u
 
 #PC4Uからnvidiaグラボの商品名と価格を取得
 async def pc4u_nvidia():
