@@ -41,7 +41,7 @@ async def send_message_every():
     JST = timezone(t_delta, 'JST')
     now = datetime.now(JST).strftime('%A/%H:%M')
     url = "https://www.pc4u.co.jp/shopbrand/pciexpress4/page1/price/"
-    await pc4u_amd(url)
+    is_pc4u_amd = await pc4u_amd(url, is_pc4u_amd)
     t.sleep(5)
     await pc4u_nvidia()
 
@@ -53,7 +53,7 @@ async def on_ready():
 
 
 #PC4Uからamdグラボの商品名と価格を取得
-async def pc4u_amd(url):
+async def pc4u_amd(url, **is_pc4u):
     channel_sent = bot.get_channel(1019194136349392916)
     res = requests.get(url).content
     soup = BeautifulSoup(res, 'html.parser')
@@ -69,44 +69,45 @@ async def pc4u_amd(url):
 
 
         # もし辞書に商品が登録されていたら(含まれていなかったらNoneが返る)
-        if is_pc4u_amd.get(title, None) is not None:
+        if is_pc4u.get(title, None) is not None:
             # 辞書に登録されている価格を取得
-            _sent_price = is_pc4u_amd[title]
+            _sent_price = is_pc4u[title]
             # もし辞書と現在の価格が違えば更新
             if price != _sent_price:
-                is_pc4u_amd[title] = price
+                is_pc4u[title] = price
                 print("#" * 50)
                 print("価格が変更!!")
                 print(title)
-                print(is_pc4u_amd[title])
+                print(is_pc4u[title])
                 print(url)
                 await channel_sent.send(title)
-                await channel_sent.send(is_pc4u_amd[title])
+                await channel_sent.send(is_pc4u[title])
                 await channel_sent.send(url)
             # 価格が同じ場合
             '''
             else:
                 print("価格に変更はない")
                 print(title)
-                print(is_pc4u_amd[title])
+                print(is_pc4u[title])
                 print(url)
             '''
         # 辞書に商品が登録されていなかったので価格を登録する
         else:            
-            is_pc4u_amd[title] = price
+            is_pc4u[title] = price
 
             '''
             print("#" * 50)
             print("初回登録")
             print(title)
-            print(is_pc4u_amd[title])
+            print(is_pc4u[title])
             print(url)
             print(stock)
             '''
 
         if title is None:
             continue
-    #print(is_pc4u_amd)
+    #print(is_pc4u)
+    return is_pc4u
 
 #PC4Uからnvidiaグラボの商品名と価格を取得
 async def pc4u_nvidia():
