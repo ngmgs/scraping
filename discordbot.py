@@ -24,7 +24,8 @@ async def on_message(message):
     now = datetime.now(JST).strftime('%A/%H:%M')
     member = message.author
     is_message[member.name] = now
-    print(is_message)
+    print(next(iter(is_pc4u_amd)))
+    print(next(iter(is_pc4u)))
     print(message.content)
     
     is_message2[member.name] = {'timestamp': now, 'content': message.content}
