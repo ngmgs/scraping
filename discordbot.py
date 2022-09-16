@@ -52,11 +52,10 @@ async def on_ready():
 
 
 #PC4Uからamdグラボの商品名と価格を取得
-async def pc4u_amd():
+async def pc4u_amd(url):
     channel_sent = bot.get_channel(1019194136349392916)
-    url = requests.get(
-        "https://www.pc4u.co.jp/shopbrand/pciexpress4/page1/price/").content
-    soup = BeautifulSoup(url, 'html.parser')
+    res = requests.get(url).content
+    soup = BeautifulSoup(res, 'html.parser')
     #print(url)
     # await channel_sent.send("pc4u")
     for item in soup.find_all(class_="innerBox"): #商品の親要素divをクラス名で取得
@@ -175,7 +174,8 @@ async def on_command_error(ctx, error):
 
 @bot.command()
 async def ping(ctx):
-    await pc4u_amd()
+    url = "https://www.pc4u.co.jp/shopbrand/pciexpress4/page1/price/"
+    await pc4u_amd(url)
     t.sleep(5)
     await pc4u_nvidia()
 
