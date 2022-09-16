@@ -120,7 +120,7 @@ async def pc4u_get_vga(url, is_pc4u):
         print("1:次のページはない")
     else:
         print("1:次のページある")
-
+'''
     t.sleep(5)
     res = requests.get(url).content
     soup = BeautifulSoup(res, 'html.parser')
@@ -142,7 +142,7 @@ async def pc4u_get_vga(url, is_pc4u):
         print("3次のページはない")
     else:
         print("3:次のページある")
-
+'''
         
 """
 #PC4Uからnvidiaグラボの商品名と価格を取得
