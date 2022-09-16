@@ -10,9 +10,17 @@ from bs4 import BeautifulSoup
 
 bot = commands.Bot(command_prefix="/",intents=discord.Intents.all())
 
-async def pc4u_test(base_url):    
-    url = requests.get(base_url).content
-    soup = BeautifulSoup(url, 'html.parser')
+@bot.command()
+async def ping(ctx):
+    base_url = 'https://www.pc4u.co.jp/shopbrand/pciexpress4/page1/price'
+    await pc4u_amd(url)
+
+def get_nextpage(soup):
+    return url
+
+async def pc4u_amd(url):    
+    res = requests.get(url).content
+    soup = BeautifulSoup(res, 'html.parser')
     #print(url)
     # await channel_sent.send("pc4u")
     for item in soup.find_all(class_="innerBox"): #商品の親要素divをクラス名で取得
@@ -28,14 +36,6 @@ async def pc4u_test(base_url):
         print(is_pc4u_amd[title])
         print(url)
         print(stock)
-        
-        
-
-@bot.command()
-async def ping(ctx):
-    base_url = 'https://www.pc4u.co.jp/shopbrand/pciexpress4/page1/price'
-    await pc4u_test(base_url)
-
 
 """
 is_pc4u_amd = {}
