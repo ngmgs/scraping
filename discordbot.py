@@ -96,7 +96,7 @@ async def pc4u_amd():
             print(title)
             print(is_pc4u_amd[title])
             print(url)
-            print(btnWrap)
+            print(stock)
             '''
             print("#" * 50)
             print("初回登録")
