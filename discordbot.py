@@ -10,34 +10,7 @@ from bs4 import BeautifulSoup
 
 bot = commands.Bot(command_prefix="/",intents=discord.Intents.all())
 
-@bot.command()
-async def ping(ctx):
-    url = 'https://www.pc4u.co.jp/shopbrand/pciexpress4/page1/price'
-    await pc4u_amd(url)
 
-def get_nextpage(soup):
-    return url
-
-async def pc4u_amd(url):    
-    res = requests.get(url).content
-    soup = BeautifulSoup(res, 'html.parser')
-    #print(url)
-    # await channel_sent.send("pc4u")
-    for item in soup.find_all(class_="innerBox"): #商品の親要素divをクラス名で取得
-        title = item.find(class_="name").text #itemからクラス名で商品名を取得
-        price = item.find(class_="price").text #itemからクラス名で価格を取得
-        stock = item.find(class_="btnWrap").find('img') #itemからクラス名で品切れ情報を取得
-        url_temp = item.find('a') #itemからクラス名で価格を取得
-        url = "https://www.pc4u.co.jp" + url_temp.get('href')
-        
-        print("#" * 50)
-        print("初回登録")
-        print(title)
-        print(is_pc4u_amd[title])
-        print(url)
-        print(stock)
-
-"""
 is_pc4u_amd = {}
 is_pc4u_nvidia = {}
 
@@ -205,7 +178,7 @@ async def ping(ctx):
     await pc4u_amd()
     t.sleep(5)
     await pc4u_nvidia()
-"""
+
 
 token = getenv('DISCORD_BOT_TOKEN')
 bot.run(token)
