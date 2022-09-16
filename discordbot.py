@@ -100,7 +100,7 @@ async def pc4u_get_vga(url, is_pc4u):
             '''
         # 辞書に商品が登録されていなかったので価格を登録する
         else:            
-            is_pc4u[title] = price
+            is_pc4u[title] = {'price': price, 'stock': stock}
 
             '''
             print("#" * 50)
