@@ -40,7 +40,8 @@ async def send_message_every():
     t_delta = timedelta(hours=9)
     JST = timezone(t_delta, 'JST')
     now = datetime.now(JST).strftime('%A/%H:%M')
-    await pc4u_amd()
+    url = "https://www.pc4u.co.jp/shopbrand/pciexpress4/page1/price/"
+    await pc4u_amd(url)
     t.sleep(5)
     await pc4u_nvidia()
 
