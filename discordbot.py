@@ -81,7 +81,7 @@ async def pc4u_get_vga(url, is_pc4u):
             _sent_price = is_pc4u[title]
             # もし辞書と現在の価格が違えば更新
             if price != _sent_price:
-                is_pc4u[title] = price
+                is_pc4u[title][price] = price
                 print("#" * 50)
                 print("価格が変更!!")
                 print(title)
