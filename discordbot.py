@@ -9,6 +9,17 @@ from datetime import datetime, timezone, timedelta, time
 from bs4 import BeautifulSoup
 
 bot = commands.Bot(command_prefix="/",intents=discord.Intents.all())
+
+async def pc4u_test(url):
+    print(url)
+
+@bot.command()
+async def ping(ctx):
+    temp = 'ぷりん'
+    await pc4u_test(temp)
+
+
+'''
 is_pc4u_amd = {}
 is_pc4u_nvidia = {}
 
@@ -176,7 +187,7 @@ async def ping(ctx):
     await pc4u_amd()
     t.sleep(5)
     await pc4u_nvidia()
-
+'''
 
 token = getenv('DISCORD_BOT_TOKEN')
 bot.run(token)
