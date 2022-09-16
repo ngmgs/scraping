@@ -10,13 +10,31 @@ from bs4 import BeautifulSoup
 
 bot = commands.Bot(command_prefix="/",intents=discord.Intents.all())
 
-async def pc4u_test(url):
-    print(url)
+async def pc4u_test(base_url):    
+    url = requests.get(base_url).content
+    soup = BeautifulSoup(url, 'html.parser')
+    #print(url)
+    # await channel_sent.send("pc4u")
+    for item in soup.find_all(class_="innerBox"): #商品の親要素divをクラス名で取得
+        title = item.find(class_="name").text #itemからクラス名で商品名を取得
+        price = item.find(class_="price").text #itemからクラス名で価格を取得
+        stock = item.find(class_="btnWrap").find('img') #itemからクラス名で品切れ情報を取得
+        url_temp = item.find('a') #itemからクラス名で価格を取得
+        url = "https://www.pc4u.co.jp" + url_temp.get('href')
+        
+        print("#" * 50)
+        print("初回登録")
+        print(title)
+        print(is_pc4u_amd[title])
+        print(url)
+        print(stock)
+        
+        
 
 @bot.command()
 async def ping(ctx):
-    temp = 'ぷりん'
-    await pc4u_test(temp)
+    base_url = 'https://www.pc4u.co.jp/shopbrand/pciexpress4/page1/price'
+    await pc4u_test(base_url)
 
 
 """
