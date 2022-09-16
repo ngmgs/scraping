@@ -64,8 +64,6 @@ async def pc4u_get_vga(url, is_pc4u):
     channel_sent = bot.get_channel(1019194136349392916)
     res = requests.get(url).content
     soup = BeautifulSoup(res, 'html.parser')
-    url = "https://www.pc4u.co.jp" + soup.find(class_='next').find('a').get('href')
-    print(url)
     # await channel_sent.send("pc4u")
     for item in soup.find_all(class_="innerBox"): #商品の親要素divをクラス名で取得
         title = item.find(class_="name").text #itemからクラス名で商品名を取得
@@ -115,6 +113,14 @@ async def pc4u_get_vga(url, is_pc4u):
             continue
     #print(is_pc4u)
     #return is_pc4u
+    url_temp = soup.find(class_='next').find('a').get('href')
+    url = "https://www.pc4u.co.jp" + url_temp
+    print(url)
+    if url is None:
+        print("次のページはない")
+    else:
+        print("次のページある")
+        
 """
 #PC4Uからnvidiaグラボの商品名と価格を取得
 async def pc4u_nvidia():
