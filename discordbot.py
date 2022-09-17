@@ -35,7 +35,7 @@ async def on_message(message):
     print(is_message2[member.name]['content'])
 
 
-@tasks.loop(minutes2)
+@tasks.loop(minutes=2)
 async def send_message_every():
     channel_sent = bot.get_channel(1019194136349392916)
     t_delta = timedelta(hours=9)
