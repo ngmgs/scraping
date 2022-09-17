@@ -17,8 +17,9 @@ is_pc4u_amd = {}
 is_pc4u_nvidia = {}
 
 
-async def main():
-    url = "https://www.pc4u.co.jp/shopbrand/pciexpress4/page1/price/"
+async def main(url):
+    print(url)
+    '''
 
     async with aiohttp.ClientSession() as session:
 
@@ -31,7 +32,7 @@ async def main():
                 print("最後のページです")
             print(url_next)
         
-
+'''
 
     
 """
@@ -225,9 +226,7 @@ async def on_command_error(ctx, error):
 async def ping(ctx):
     url = "https://www.pc4u.co.jp/shopbrand/pciexpress4/page1/price/"
     await main(url)
-    
-loop_ = asyncio.get_event_loop()
-loop_.run_until_complete(main())
+
 
 token = getenv('DISCORD_BOT_TOKEN')
 bot.run(token)
