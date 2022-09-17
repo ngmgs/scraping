@@ -35,8 +35,9 @@ async def fetch(session, url):
         async with session.get(url) as response:
             html = await response.text()
             soup = BeautifulSoup(html, "html.parser")
-            print("あ")
-            await asyncio.sleep(5)
+            url_next = soup.select_one('li.next > a[href]:-soup-contains("次の50件")').get('href')
+            print(url_text)
+            await asyncio.sleep(100)
             return html
 
     
