@@ -1,3 +1,5 @@
 discord.py[voice]>=1.7.3
 requests==2.28.1
 bs4==0.0.1
+aiohttp==3.5.4
+aiohttp-session==2.7.0
