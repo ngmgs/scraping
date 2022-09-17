@@ -35,7 +35,8 @@ async def fetch(session, url):
             soup = BeautifulSoup(html, "html.parser")
             print("あ")
             return html
-   '''     
+        
+'''     
         async with session.get(url) as response:
             html = await response.text()
             soup = BeautifulSoup(html, "html.parser")
