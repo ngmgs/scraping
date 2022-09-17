@@ -1,6 +1,7 @@
 import discord
 import traceback
 import requests
+import asyncio
 import time as t
 from discord.ext import commands
 from discord.ext import tasks
@@ -9,6 +10,8 @@ from datetime import datetime, timezone, timedelta, time
 from bs4 import BeautifulSoup
 
 bot = commands.Bot(command_prefix="/",intents=discord.Intents.all())
+
+
 is_pc4u_amd = {}
 is_pc4u_nvidia = {}
 
@@ -24,38 +27,45 @@ async def on_message(message):
     is_message[member.name] = now
     print(is_message)
     print(message.content)
-    
+    print(message.content)
+
     is_message2[member.name] = {'timestamp': now, 'content': message.content}
     print(is_message2)
     print(is_message2[member.name])
     print(is_message2[member.name]['timestamp'])
     print(is_message2[member.name]['content'])
 
-    
+
 @tasks.loop(minutes=1)
 async def send_message_every():
     channel_sent = bot.get_channel(1019194136349392916)
     t_delta = timedelta(hours=9)
     JST = timezone(t_delta, 'JST')
     now = datetime.now(JST).strftime('%A/%H:%M')
-    await pc4u_amd()
-    t.sleep(5)
-    await pc4u_nvidia()
+    url = "https://www.pc4u.co.jp/shopbrand/pciexpress4/page1/price/"
+    print(now)
+    await pc4u_get_vga(url, is_pc4u_amd)
+    print(list(is_pc4u_amd.items())[0])
+    await asyncio.sleep(5)
+    url = "https://www.pc4u.co.jp/shopbrand/ct1850/page1/price/"
+    await pc4u_get_vga(url, is_pc4u_nvidia)
+    print(list(is_pc4u_nvidia.items())[0])
+    
+    # await pc4u_nvidia()
 
 
 @bot.event
 async def on_ready():
-    send_message_every.start()
+    send_message_every.start()  # ループ処理開始
 
 
 
 #PC4Uからamdグラボの商品名と価格を取得
-async def pc4u_amd():
+async def pc4u_get_vga(url, is_pc4u):
     channel_sent = bot.get_channel(1019194136349392916)
-    url = requests.get(
-        "https://www.pc4u.co.jp/shopbrand/pciexpress4/page1/price/").content
-    soup = BeautifulSoup(url, 'html.parser')
-    #print(url)
+    session = requests.Session()
+    res = session.get(url).content
+    soup = BeautifulSoup(res, 'html.parser')
     # await channel_sent.send("pc4u")
     for item in soup.find_all(class_="innerBox"): #商品の親要素divをクラス名で取得
         title = item.find(class_="name").text #itemからクラス名で商品名を取得
@@ -66,49 +76,90 @@ async def pc4u_amd():
 
 
         # もし辞書に商品が登録されていたら(含まれていなかったらNoneが返る)
-        if is_pc4u_amd.get(title, None) is not None:
+        if is_pc4u.get(title, None) is not None:
             # 辞書に登録されている価格を取得
-            _sent_price = is_pc4u_amd[title]
+            _sent_price = is_pc4u[title]['price']
             # もし辞書と現在の価格が違えば更新
             if price != _sent_price:
-                is_pc4u_amd[title] = price
+                is_pc4u[title]['price'] = price
                 print("#" * 50)
                 print("価格が変更!!")
                 print(title)
-                print(is_pc4u_amd[title])
+                print(is_pc4u[title])
                 print(url)
                 await channel_sent.send(title)
-                await channel_sent.send(is_pc4u_amd[title])
+                await channel_sent.send(is_pc4u[title])
                 await channel_sent.send(url)
             # 価格が同じ場合
             '''
             else:
                 print("価格に変更はない")
                 print(title)
-                print(is_pc4u_amd[title])
+                print(is_pc4u[title])
                 print(url)
             '''
         # 辞書に商品が登録されていなかったので価格を登録する
         else:            
-            is_pc4u_amd[title] = price
-            print("#" * 50)
-            print("初回登録")
-            print(title)
-            print(is_pc4u_amd[title])
-            print(url)
-            print(stock)
+            is_pc4u[title] = {'price': price, 'stock': stock}
+
             '''
             print("#" * 50)
             print("初回登録")
             print(title)
-            print(is_pc4u_amd[title])
+            print(is_pc4u[title])
             print(url)
+            print(stock)
             '''
 
         if title is None:
             continue
-    #print(is_pc4u_amd)
+    #print(is_pc4u)
+    #return is_pc4u
 
+    while True:
+        print(session)
+        try:
+            url_next = soup.select_one('li.next > a[href]:-soup-contains("次の50件")').get('href')
+        except AttributeError:
+            print("最後のページです")
+            break
+        url_next = soup.select_one('li.next > a[href]:-soup-contains("次の50件")').get('href')
+        url = "https://www.pc4u.co.jp" + url_next
+        print("次のページは")
+        print(url)
+        await asyncio.sleep(5)
+        res = session.get(url).content
+        soup = BeautifulSoup(res, 'html.parser')
+    print("ブレイクしたよ")
+'''
+    t.sleep(5)
+    res = requests.get(url).content
+    soup = BeautifulSoup(res, 'html.parser')
+    url_next = soup.select_one('li.next > a[href]:-soup-contains("次の50件")').get('href')
+    url = "https://www.pc4u.co.jp" + url_next
+    print(url)
+    if url_next is None:
+        print("2:次のページはない")
+    else:
+        print("2:次のページある")
+
+    t.sleep(5)
+    res = requests.get(url).content
+    soup = BeautifulSoup(res, 'html.parser')
+    try:
+        url_next = soup.select_one('li.next > a[href]:-soup-contains("次の50件")').get('href')
+    except AttributeError:
+        print("最後のページです")
+        return
+    url = "https://www.pc4u.co.jp" + url_next
+    print(url)
+    if url_next is None:
+        print("3次のページはない")
+    else:
+        print("3:次のページある")
+'''
+        
+"""
 #PC4Uからnvidiaグラボの商品名と価格を取得
 async def pc4u_nvidia():
     channel_sent = bot.get_channel(1019194136349392916)
@@ -162,7 +213,7 @@ async def pc4u_nvidia():
         if title is None:
             continue
     #print(is_pc4u_nvidia)
-
+"""
 
 @bot.event
 async def on_command_error(ctx, error):
@@ -173,11 +224,11 @@ async def on_command_error(ctx, error):
 
 @bot.command()
 async def ping(ctx):
-    await pc4u_amd()
+    url = "https://www.pc4u.co.jp/shopbrand/pciexpress4/page1/price/"
+    await pc4u_amd(url)
     t.sleep(5)
     await pc4u_nvidia()
 
 
 token = getenv('DISCORD_BOT_TOKEN')
 bot.run(token)
-
