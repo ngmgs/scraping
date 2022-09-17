@@ -39,9 +39,22 @@ async def fetch(session, url):
             soup = BeautifulSoup(html, "html.parser")
             # url_next = soup.select_one('li.next > a[href]:-soup-contains("次の50件")').get('href')
             # print(url_next)
-            return soup
+            return html
 
-    
+async def next_page(session, soup):
+        while True:
+            try:
+                url_next = soup.select_one('li.next > a[href]:-soup-contains("次の50件")').get('href')
+            except AttributeError:
+                print("最後のページです")
+                break
+            url_next = soup.select_one('li.next > a[href]:-soup-contains("次の50件")').get('href')
+            url = "https://www.pc4u.co.jp" + url_next
+            print("次のページは")
+            print(url)
+            await asyncio.sleep(5)
+            res = session.get(url).content
+            soup = BeautifulSoup(res, 'html.parser')
 '''     
         async with session.get(url) as response:
             html = await response.text()
