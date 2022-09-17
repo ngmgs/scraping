@@ -21,7 +21,8 @@ async def main(url):
     
     async with aiohttp.ClientSession() as session:
         async with session.get(url) as res:
-            soup = BeautifulSoup(res.text(), 'html.parser')
+            html = await response.text()
+            soup = BeautifulSoup(html, "html.parser")
             print(url)
     '''
 
