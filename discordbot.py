@@ -33,32 +33,26 @@ async def main():
         
 async def fetch(session, url):
     print("{} start".format(url))
-    async with async_timeout.timeout(100):
-        async with session.get(url) as response:
-            html = await response.text()
-            soup = BeautifulSoup(html, "html.parser")
-            await next_page(session, soup)
-            url_next = soup.select_one('li.next > a[href]:-soup-contains("次の50件")').get('href')
-            print(url_next)
-            await asyncio.sleep(5)
-            print(url_next)
-            return html
+    await next_page(session, url)
+    return html
 
-async def next_page(session, soup):
+async def next_page(session, url):
         while True:
-            try:
-                url_next = soup.select_one('li.next > a[href]:-soup-contains("次の50件")').get('href')
-            except AttributeError:
-                print("最後のページです")
-                break
-            url_next = soup.select_one('li.next > a[href]:-soup-contains("次の50件")').get('href')
-            url = "https://www.pc4u.co.jp" + url_next
-            print("次のページは")
-            print(url)
-            await asyncio.sleep(5)
-            async with session.get(url) as response:
-                html = await response.text()
-                soup = BeautifulSoup(html, "html.parser")
+            async with async_timeout.timeout(100):
+                async with session.get(url) as response:
+                    html = await response.text()
+                    soup = BeautifulSoup(html, "html.parser")
+
+                    try:
+                        url_next = soup.select_one('li.next > a[href]:-soup-contains("次の50件")').get('href')
+                    except AttributeError:
+                        print("最後のページです")
+                        break
+                    url_next = soup.select_one('li.next > a[href]:-soup-contains("次の50件")').get('href')
+                    url = "https://www.pc4u.co.jp" + url_next
+                    print("次のページは")
+                    print(url)
+              
 '''     
         async with session.get(url) as response:
             html = await response.text()
