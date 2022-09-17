@@ -138,7 +138,11 @@ async def pc4u_get_vga(url, is_pc4u):
     t.sleep(5)
     res = requests.get(url).content
     soup = BeautifulSoup(res, 'html.parser')
-    url_next = soup.select_one('li.next > a[href]:-soup-contains("次の50件")').get('href')
+    try:
+        url_next = soup.select_one('li.next > a[href]:-soup-contains("次の50件")').get('href')
+    except AttributeError:
+        print("最後のページです")
+        return
     url = "https://www.pc4u.co.jp" + url_next
     print(url)
     if url_next is None:
