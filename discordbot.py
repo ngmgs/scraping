@@ -17,19 +17,36 @@ is_pc4u_amd = {}
 is_pc4u_nvidia = {}
 
 
-async def main(url):
+async def main():
     
     async with aiohttp.ClientSession() as session:
+        urls = [
+            'https://www.pc4u.co.jp/shopbrand/pciexpress4/page1/price/',
+            'https://www.pc4u.co.jp/shopbrand/ct1850/page1/price/',
+        ]
+        promises = [fetch(session, u) for u in urls]
+        await asyncio.gather(*promises)
+        
+async def fetch(session, url):
+    print("{} start".format(url))
+    async with async_timeout.timeout(10):
         async with session.get(url) as response:
             html = await response.text()
             soup = BeautifulSoup(html, "html.parser")
+            print("あ")
+            return html
+   '''     
+        async with session.get(url) as response:
+            html = await response.text()
+            soup = BeautifulSoup(html, "html.parser")
+            
             try:
                 url_next = soup.select_one('li.next > a[href]:-soup-contains("次の50件")').get('href')
             except AttributeError:
                 print("最後のページです")
             print(url_next)
             print(url)
-    '''
+    
 
     async with aiohttp.ClientSession() as session:
 
