@@ -23,6 +23,11 @@ async def main(url):
         async with session.get(url) as response:
             html = await response.text()
             soup = BeautifulSoup(html, "html.parser")
+            try:
+                url_next = soup.select_one('li.next > a[href]:-soup-contains("次の50件")').get('href')
+            except AttributeError:
+                print("最後のページです")
+            print(url_next)
             print(url)
     '''
 
