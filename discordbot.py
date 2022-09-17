@@ -54,8 +54,9 @@ async def next_page(session, soup):
             print("次のページは")
             print(url)
             await asyncio.sleep(5)
-            res = session.get(url).content
-            soup = BeautifulSoup(res, 'html.parser')
+            async with session.get(url) as response:
+                html = await response.text()
+                soup = BeautifulSoup(html, "html.parser")
 '''     
         async with session.get(url) as response:
             html = await response.text()
