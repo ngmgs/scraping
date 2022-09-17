@@ -33,26 +33,35 @@ async def main():
         
 async def fetch(session, url):
     print("{} start".format(url))
-    await next_page(session, url)
+    while True:
+        async with async_timeout.timeout(100):
+            async with session.get(url) as response:
+                html = await response.text()
+                soup = BeautifulSoup(html, "html.parser")
+                
+                url = await next_page(session, soup)
+                
+                if url is None:
+                    break
+
+                await asyncio.sleep(5)
+                    
     return
 
-async def next_page(session, url):
-        while True:
-            async with async_timeout.timeout(100):
-                async with session.get(url) as response:
-                    html = await response.text()
-                    soup = BeautifulSoup(html, "html.parser")
+async def next_page(session, soup):
+    try:
+        url_next = soup.select_one('li.next > a[href]:-soup-contains("次の50件")').get('href')
+    except AttributeError:
+        print("最後のページです")
+        return
+    url_next = soup.select_one('li.next > a[href]:-soup-contains("次の50件")').get('href')
+    url = "https://www.pc4u.co.jp" + url_next
+    print("次のページは")
+    print(url)
+    return url
+    
 
-                    try:
-                        url_next = soup.select_one('li.next > a[href]:-soup-contains("次の50件")').get('href')
-                    except AttributeError:
-                        print("最後のページです")
-                        break
-                    url_next = soup.select_one('li.next > a[href]:-soup-contains("次の50件")').get('href')
-                    url = "https://www.pc4u.co.jp" + url_next
-                    print("次のページは")
-                    print(url)
-                    await asyncio.sleep(5)
+
               
 '''     
         async with session.get(url) as response:
