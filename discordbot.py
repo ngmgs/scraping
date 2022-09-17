@@ -34,7 +34,7 @@ async def main():
 async def fetch(session, url):
     print("{} start".format(url))
     await next_page(session, url)
-    return html
+    return
 
 async def next_page(session, url):
         while True:
