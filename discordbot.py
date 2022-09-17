@@ -52,6 +52,7 @@ async def next_page(session, url):
                     url = "https://www.pc4u.co.jp" + url_next
                     print("次のページは")
                     print(url)
+                    await asyncio.sleep(5)
               
 '''     
         async with session.get(url) as response:
