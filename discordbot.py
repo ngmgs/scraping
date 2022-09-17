@@ -20,7 +20,7 @@ is_pc4u_nvidia = {}
 async def main(url):
     
     async with aiohttp.ClientSession() as session:
-        async with session.get(url) as res:
+        async with session.get(url) as response:
             html = await response.text()
             soup = BeautifulSoup(html, "html.parser")
             print(url)
