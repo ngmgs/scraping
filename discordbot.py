@@ -2,6 +2,7 @@ import discord
 import traceback
 import requests
 import asyncio
+import aiohttp
 import time as t
 from discord.ext import commands
 from discord.ext import tasks
@@ -16,26 +17,22 @@ is_pc4u_amd = {}
 is_pc4u_nvidia = {}
 
 
-is_message = {}
-is_message2 = {}
-@bot.event
-async def on_message(message):
-    t_delta = timedelta(hours=9)
-    JST = timezone(t_delta, 'JST')
-    now = datetime.now(JST).strftime('%A/%H:%M')
-    member = message.author
-    is_message[member.name] = now
-    print(is_message)
-    print(message.content)
-    print(message.content)
+async def main(url):
 
-    is_message2[member.name] = {'timestamp': now, 'content': message.content}
-    print(is_message2)
-    print(is_message2[member.name])
-    print(is_message2[member.name]['timestamp'])
-    print(is_message2[member.name]['content'])
+    async with aiohttp.ClientSession() as session:
+
+        async with session.get(url) as res:
+        soup = BeautifulSoup(res, 'html.parser')
+        try:
+            url_next = soup.select_one('li.next > a[href]:-soup-contains("次の50件")').get('href')
+        except AttributeError:
+            print("最後のページです")
+        print(url_next)
+        
 
 
+    
+"""
 @tasks.loop(minutes=1)
 async def send_message_every():
     channel_sent = bot.get_channel(1019194136349392916)
@@ -159,7 +156,7 @@ async def pc4u_get_vga(url, is_pc4u):
         print("3:次のページある")
 '''
         
-"""
+
 #PC4Uからnvidiaグラボの商品名と価格を取得
 async def pc4u_nvidia():
     channel_sent = bot.get_channel(1019194136349392916)
@@ -225,10 +222,7 @@ async def on_command_error(ctx, error):
 @bot.command()
 async def ping(ctx):
     url = "https://www.pc4u.co.jp/shopbrand/pciexpress4/page1/price/"
-    await pc4u_amd(url)
-    t.sleep(5)
-    await pc4u_nvidia()
-
+    await main(url)
 
 token = getenv('DISCORD_BOT_TOKEN')
 bot.run(token)
