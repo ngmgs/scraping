@@ -37,6 +37,7 @@ async def fetch(session, url):
         async with session.get(url) as response:
             html = await response.text()
             soup = BeautifulSoup(html, "html.parser")
+            await next_page(session, soup)
             # url_next = soup.select_one('li.next > a[href]:-soup-contains("次の50件")').get('href')
             # print(url_next)
             return html
