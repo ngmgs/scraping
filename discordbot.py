@@ -33,13 +33,15 @@ async def main():
         
 async def fetch(session, url):
     print("{} start".format(url))
-    async with async_timeout.timeout(10):
+    async with async_timeout.timeout(100):
         async with session.get(url) as response:
             html = await response.text()
             soup = BeautifulSoup(html, "html.parser")
             await next_page(session, soup)
             # url_next = soup.select_one('li.next > a[href]:-soup-contains("次の50件")').get('href')
-            # print(url_next)
+            print(url_next)
+            await asyncio.sleep(5)
+            print(url_next)
             return html
 
 async def next_page(session, soup):
