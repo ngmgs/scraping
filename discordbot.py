@@ -27,7 +27,7 @@ async def main():
         ]
         promises = [fetch(session, u) for u in urls]
         print(promises)
-        # await asyncio.gather(*promises)
+        await asyncio.gather(*promises)
         
 async def fetch(session, url):
     print("{} start".format(url))
