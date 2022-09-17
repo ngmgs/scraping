@@ -117,7 +117,6 @@ async def pc4u_get_vga(url, is_pc4u):
     #return is_pc4u
 
     while True:
-        session = requests.session()
         print(session)
         try:
             url_next = soup.select_one('li.next > a[href]:-soup-contains("次の50件")').get('href')
