@@ -63,7 +63,8 @@ async def on_ready():
 #PC4Uからamdグラボの商品名と価格を取得
 async def pc4u_get_vga(url, is_pc4u):
     channel_sent = bot.get_channel(1019194136349392916)
-    res = requests.get(url).content
+    session = requests.Session()
+    res = session.get(url).content
     soup = BeautifulSoup(res, 'html.parser')
     # await channel_sent.send("pc4u")
     for item in soup.find_all(class_="innerBox"): #商品の親要素divをクラス名で取得
@@ -128,7 +129,7 @@ async def pc4u_get_vga(url, is_pc4u):
         print("次のページは")
         print(url)
         await asyncio.sleep(5)
-        res = requests.get(url).content
+        res = session.get(url).content
         soup = BeautifulSoup(res, 'html.parser')
     print("ブレイクしたよ")
 '''
