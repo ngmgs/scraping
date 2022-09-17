@@ -30,7 +30,7 @@ async def main():
         
 async def fetch(session, url):
     print("{} start".format(url))
-    async with async_timeout.timeout(10):
+    async with async_timeout.timeout(0.1):
         async with session.get(url) as response:
             html = await response.text()
             soup = BeautifulSoup(html, "html.parser")
