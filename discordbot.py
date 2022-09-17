@@ -1,6 +1,6 @@
 import discord
 import traceback
-import requests
+# import requests
 import asyncio
 import aiohttp
 import time as t
