@@ -1,6 +1,7 @@
 import discord
 import traceback
 import requests
+import asyncio
 import time as t
 from discord.ext import commands
 from discord.ext import tasks
@@ -45,7 +46,7 @@ async def send_message_every():
     print(now)
     await pc4u_get_vga(url, is_pc4u_amd)
     print(list(is_pc4u_amd.items())[0])
-    t.sleep(5)
+    await asyncio.sleep(20)
     url = "https://www.pc4u.co.jp/shopbrand/ct1850/page1/price/"
     await pc4u_get_vga(url, is_pc4u_nvidia)
     print(list(is_pc4u_nvidia.items())[0])
@@ -124,7 +125,7 @@ async def pc4u_get_vga(url, is_pc4u):
         url = "https://www.pc4u.co.jp" + url_next
         print("次のページは")
         print(url)
-        await asyncio.sleep(10)
+        t.sleep(5)
         res = requests.get(url).content
         soup = BeautifulSoup(res, 'html.parser')
     print("ブレイクしたよ")
