@@ -113,17 +113,22 @@ async def pc4u_get_vga(url, is_pc4u):
             continue
     #print(is_pc4u)
     #return is_pc4u
-    
-    # url_temp = soup.find_all(class_='next')
-    # url_temp = url_temp[-1].find('a').get('href')
-    url_next = soup.select_one('li.next > a[href]:-soup-contains("次の50件")').get('href')
-    url = "https://www.pc4u.co.jp" + url_next
-    print(url)
-    if url_next is None:
-        print("1:次のページはない")
-    else:
-        print("1:次のページある")
 
+    while true:
+        try:
+            url_next = soup.select_one('li.next > a[href]:-soup-contains("次の50件")').get('href')
+        except AttributeError:
+            print("最後のページです")
+            break
+        url_next = soup.select_one('li.next > a[href]:-soup-contains("次の50件")').get('href')
+        url = "https://www.pc4u.co.jp" + url_next
+        print("次のページは")
+        print(url)
+        t.sleep(5)
+        res = requests.get(url).content
+        soup = BeautifulSoup(res, 'html.parser')
+    print("ブレイクしたよ")
+'''
     t.sleep(5)
     res = requests.get(url).content
     soup = BeautifulSoup(res, 'html.parser')
@@ -149,7 +154,7 @@ async def pc4u_get_vga(url, is_pc4u):
         print("3次のページはない")
     else:
         print("3:次のページある")
-
+'''
         
 """
 #PC4Uからnvidiaグラボの商品名と価格を取得
