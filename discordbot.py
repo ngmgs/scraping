@@ -3,6 +3,7 @@ import traceback
 # import requests
 import asyncio
 import aiohttp
+import async_timeout
 import time as t
 from discord.ext import commands
 from discord.ext import tasks
@@ -253,7 +254,7 @@ async def on_command_error(ctx, error):
 @bot.command()
 async def ping(ctx):
     url = "https://www.pc4u.co.jp/shopbrand/pciexpress4/page1/price/"
-    await main(url)
+    await main()
 
 
 token = getenv('DISCORD_BOT_TOKEN')
