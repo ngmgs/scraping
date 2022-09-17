@@ -26,6 +26,7 @@ async def main():
             'https://www.pc4u.co.jp/shopbrand/ct1850/page1/price/',
         ]
         promises = [fetch(session, u) for u in urls]
+        print(promises)
         await asyncio.gather(*promises)
         
 async def fetch(session, url):
