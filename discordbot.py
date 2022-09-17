@@ -36,8 +36,10 @@ async def fetch(session, url):
             html = await response.text()
             soup = BeautifulSoup(html, "html.parser")
             print("あ")
+            await asyncio.sleep(5)
             return html
-        
+
+    
 '''     
         async with session.get(url) as response:
             html = await response.text()
