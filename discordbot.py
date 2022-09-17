@@ -26,11 +26,10 @@ async def main():
             'https://www.pc4u.co.jp/shopbrand/ct1850/page1/price/',
         ]
         promises = [fetch(session, u) for u in urls]
-        # print(promises)
+        print(promises)
         await asyncio.gather(*promises)
         
-        url_next = promises[0].select_one('li.next > a[href]:-soup-contains("次の50件")').get('href')
-        print(url_next)
+
         
 async def fetch(session, url):
     print("{} start".format(url))
