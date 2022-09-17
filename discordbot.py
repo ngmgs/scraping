@@ -18,7 +18,9 @@ is_pc4u_nvidia = {}
 
 
 async def main(url):
-    print(url)
+    
+    async with aiohttp.ClientSession() as session:
+        print(url)
     '''
 
     async with aiohttp.ClientSession() as session:
@@ -225,7 +227,7 @@ async def on_command_error(ctx, error):
 @bot.command()
 async def ping(ctx):
     url = "https://www.pc4u.co.jp/shopbrand/pciexpress4/page1/price/"
-    asyncio.run(main(url))
+    await main(url)
 
 
 token = getenv('DISCORD_BOT_TOKEN')
