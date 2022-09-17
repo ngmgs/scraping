@@ -223,7 +223,7 @@ async def on_command_error(ctx, error):
 @bot.command()
 async def ping(ctx):
     url = "https://www.pc4u.co.jp/shopbrand/pciexpress4/page1/price/"
-    await main(url)
+    asyncio.run(main(url))
 
 token = getenv('DISCORD_BOT_TOKEN')
 bot.run(token)
