@@ -319,6 +319,11 @@ async def pank(ctx):
     path = os.getcwd()
     print(path)
     print(type(path))
+    
+    with open('is_pc4u_amd.csv', 'r') as file:
+        reader = csv.reader(file)
+        for is_pc4u_amd in reader:
+            print(is_pc4u_amd)
 
     
 token = getenv('DISCORD_BOT_TOKEN')
