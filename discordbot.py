@@ -5,6 +5,7 @@ import asyncio
 import aiohttp
 import async_timeout
 import time as t
+import csv
 from discord.ext import commands
 from discord.ext import tasks
 from os import getenv
@@ -29,6 +30,10 @@ async def main():
         print(promises)
         await asyncio.gather(*promises)
         
+        with open('is_pc4u_amd.csv', 'w') as f:  
+            writer = csv.writer(f)            
+            for k, v in is_pc4u_amd.items():
+               writer.writerow([k, v])
 
         
 async def fetch(session, url, dic):
