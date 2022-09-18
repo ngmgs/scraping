@@ -57,7 +57,8 @@ async def get_items(item, dic):
     price = item.select_one('p.price').text  # itemからクラス名で価格を取得
     stock = item.select_one('div.btnWrap > img')  #itemからクラス名で品切れ情報を取得
     
-    if dic = False:
+    
+    if dic == False:
         dic[title] = {'price': price, 'stock': stock}
 
         print("#" * 50)
