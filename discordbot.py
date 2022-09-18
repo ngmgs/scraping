@@ -42,7 +42,7 @@ async def fetch(session, url):
                 url = await next_page(session, soup)
                 
                 promises = [get_items(item) for item in soup.find_all(class_="innerBox")]
-                await asyncio.gather(*promises)
+                # await asyncio.gather(*promises)
                 
                 if url is None:
                     break
