@@ -322,8 +322,8 @@ async def pank(ctx):
     
     with open('is_pc4u_amd.csv', 'r') as file:
         reader = csv.reader(file)
-        for is_pc4u_amd in reader:
-            print(is_pc4u_amd)
+        for row in reader:
+            print(row)
 
     
 token = getenv('DISCORD_BOT_TOKEN')
