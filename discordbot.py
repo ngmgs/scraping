@@ -325,7 +325,7 @@ async def pank(ctx):
     
 @bot.command()
 async def penk(ctx):
-    tf = open("myDictionary.json", "r")
+    tf = open("/tmp/myDictionary.json", "r")
     new_dict = json.load(tf)
     print(new_dict)
     
