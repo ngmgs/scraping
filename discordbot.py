@@ -21,10 +21,10 @@ is_pc4u_nvidia = {}
 async def main():
     
     async with aiohttp.ClientSession() as session:
-        urls = [
-            'https://www.pc4u.co.jp/shopbrand/pciexpress4/page1/price/',
+        urls = {
+            'https://www.pc4u.co.jp/shopbrand/pciexpress4/page1/price/', is_pc4u_amd,
             # 'https://www.pc4u.co.jp/shopbrand/ct1850/page1/price/',
-        ]
+        }
         promises = [fetch(session, u) for u in urls]
         print(promises)
         await asyncio.gather(*promises)
