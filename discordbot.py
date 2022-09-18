@@ -23,7 +23,7 @@ async def main():
     async with aiohttp.ClientSession() as session:
         urls = [
             'https://www.pc4u.co.jp/shopbrand/pciexpress4/page1/price/',
-            'https://www.pc4u.co.jp/shopbrand/ct1850/page1/price/',
+            # 'https://www.pc4u.co.jp/shopbrand/ct1850/page1/price/',
         ]
         promises = [fetch(session, u) for u in urls]
         print(promises)
@@ -41,12 +41,22 @@ async def fetch(session, url):
                 
                 url = await next_page(session, soup)
                 
+                promises = [get_items(item) for item in soup.find_all(class_="innerBox")]
+                await asyncio.gather(*promises)
+                
                 if url is None:
                     break
 
                 await asyncio.sleep(5)
                     
     return
+
+async def get_items(item):
+    
+    title = item.find(class_="name").text #itemからクラス名で商品名を取得
+    print(title)
+    
+
 
 async def next_page(session, soup):
     try:
