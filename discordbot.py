@@ -23,7 +23,7 @@ async def main():
     async with aiohttp.ClientSession() as session:
         urls = {
             'https://www.pc4u.co.jp/shopbrand/pciexpress4/page1/price/': is_pc4u_amd,
-            # 'https://www.pc4u.co.jp/shopbrand/ct1850/page1/price/',
+            # 'https://www.pc4u.co.jp/shopbrand/ct1850/page1/price/': is_nvidia,
         }
         promises = [fetch(session, url, dic) for url, dic in urls.items()]
         print(promises)
@@ -53,8 +53,9 @@ async def fetch(session, url, dic):
 
 async def get_items(item, dic):
     
-    title = item.find(class_="name").text #itemからクラス名で商品名を取得
-    price = item.find(class_="price").text #itemからクラス名で価格を取得
+    title = item.select_one('p.name').text  # itemからクラス名で商品名を取得
+    price = item.find(class_="price").text  # itemからクラス名で価格を取得
+    stock = item.find(class_="btnWrap").find('img') #itemからクラス名で品切れ情報を取得
     dic[title] = price
     print(title)
     print(dic[title])
