@@ -54,8 +54,8 @@ async def fetch(session, url, dic):
 async def get_items(item, dic):
     
     title = item.select_one('p.name').text  # itemからクラス名で商品名を取得
-    price = item.find(class_="price").text  # itemからクラス名で価格を取得
-    stock = item.find(class_="btnWrap").find('img') #itemからクラス名で品切れ情報を取得
+    price = item.select_one('p.price').text  # itemからクラス名で価格を取得
+    stock = item.select_one('div.btnWrap > img')  #itemからクラス名で品切れ情報を取得
     dic[title] = price
     print(title)
     print(dic[title])
