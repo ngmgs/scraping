@@ -7,6 +7,7 @@ import async_timeout
 import time as t
 import csv
 import os
+import json
 from discord.ext import commands
 from discord.ext import tasks
 from os import getenv
@@ -316,15 +317,18 @@ async def ping(ctx):
 
 @bot.command()
 async def pank(ctx):
-    path = os.getcwd()
-    print(path)
-    print(type(path))
-    
-    with open('is_pc4u_amd.csv', 'r') as file:
-        reader = csv.reader(file)
-        for row in reader:
-            print(row)
+    my_dict = { 'Apple': 4, 'Banana': 2, 'Orange': 6, 'Grapes': 11}
 
+    tf = open("myDictionary.json", "w")
+    json.dump(my_dict,tf)
+    tf.close()
+    
+@bot.command()
+async def penk(ctx):
+    tf = open("myDictionary.json", "r")
+    new_dict = json.load(tf)
+    print("a:" + mydict)
+    print("b:" + new_dict)
     
 token = getenv('DISCORD_BOT_TOKEN')
 bot.run(token)
