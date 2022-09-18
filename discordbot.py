@@ -25,13 +25,13 @@ async def main():
             'https://www.pc4u.co.jp/shopbrand/pciexpress4/page1/price/': 'is_pc4u_amd',
             # 'https://www.pc4u.co.jp/shopbrand/ct1850/page1/price/',
         }
-        promises = [fetch(session, u) for u in urls]
+        promises = [fetch(session, url, dic) for url, dic in urls.items()]
         print(promises)
         await asyncio.gather(*promises)
         
 
         
-async def fetch(session, url):
+async def fetch(session, url, dic):
     print("{} start".format(url))
     while True:
         async with async_timeout.timeout(100):
@@ -41,7 +41,7 @@ async def fetch(session, url):
                 
                 url = await next_page(session, soup)
                 
-                promises = [get_items(item) for item in soup.find_all(class_="innerBox")]
+                promises = [get_items(item, dic) for item in soup.find_all(class_="innerBox")]
                 await asyncio.gather(*promises)
                 
                 if url is None:
@@ -51,10 +51,13 @@ async def fetch(session, url):
                     
     return
 
-async def get_items(item):
+async def get_items(item, dic):
     
     title = item.find(class_="name").text #itemからクラス名で商品名を取得
+    price = item.find(class_="price").text #itemからクラス名で価格を取得
+    dic[title] = price
     print(title)
+    print(dic[title])
     
 
 
