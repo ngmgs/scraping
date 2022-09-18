@@ -6,6 +6,7 @@ import aiohttp
 import async_timeout
 import time as t
 import csv
+import os
 from discord.ext import commands
 from discord.ext import tasks
 from os import getenv
@@ -45,7 +46,12 @@ async def fetch(session, url, dic):
                 soup = BeautifulSoup(html, "html.parser")
                 
                 url = await next_page(session, soup)
-                
+                '''
+                if dic == False:
+                    promises = [get_items(item, dic) for item in soup.find_all(class_="innerBox")]
+                    await asyncio.gather(*promises)
+                    return
+                ''' 
                 promises = [get_items(item, dic) for item in soup.find_all(class_="innerBox")]
                 await asyncio.gather(*promises)
                 
@@ -308,6 +314,12 @@ async def ping(ctx):
     url = "https://www.pc4u.co.jp/shopbrand/pciexpress4/page1/price/"
     await main()
 
+@bot.command()
+async def pank(ctx):
+    path = os.getcwd()
+    print(path)
+    print(type(path))
 
+    
 token = getenv('DISCORD_BOT_TOKEN')
 bot.run(token)
