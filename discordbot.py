@@ -327,7 +327,6 @@ async def pank(ctx):
 async def penk(ctx):
     tf = open("myDictionary.json", "r")
     new_dict = json.load(tf)
-    print("a:" + mydict)
     print("b:" + new_dict)
     
 token = getenv('DISCORD_BOT_TOKEN')
