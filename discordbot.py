@@ -14,7 +14,7 @@ from os import getenv
 from datetime import datetime, timezone, timedelta, time
 from bs4 import BeautifulSoup
 
-bot = commands.Bot(command_prefix="/",intents=discord.Intents.all())
+bot = commands.Bot(command_prefix="\",intents=discord.Intents.all())
 
 
 is_pc4u_amd = {}
@@ -36,9 +36,7 @@ async def sub():
     now = datetime.now(JST).strftime('%A/%H:%M:%S')
     print(now)
     for i in range(1,11):
-        tashizan = i + i
-        await asyncio.sleep(1)
-        kakezan = i * i
+        await keisan(i)
     print(datetime.now(JST).strftime('%A/%H:%M:%S'))
     
 async def keisan(i):
