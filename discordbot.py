@@ -47,14 +47,12 @@ async def fetch(session, url, dic):
                 soup = BeautifulSoup(html, "html.parser")
 
                 # もし辞書が空の時（再起動等で辞書が空のとき）
-                print(dic)
                 if any(dic) == False:
-                    print("辞書に全アイテム登録")
                     promises = [first_items(item, dic) for item in soup.find_all(class_="innerBox")]
                     await asyncio.gather(*promises)
                     print("辞書に全アイテム登録完了")
                     return
-                 
+
                 promises = [get_items(item, dic) for item in soup.find_all(class_="innerBox")]
                 await asyncio.gather(*promises)
 
@@ -78,21 +76,46 @@ async def first_items(item, dic):
     
 
 async def get_items(item, dic):
-    
+    channel_sent = bot.get_channel(1019194136349392916)
     title = item.select_one('p.name').text  # itemからクラス名で商品名を取得
     price = item.select_one('p.price').text  # itemからクラス名で価格を取得
     stock = item.select_one('div.btnWrap > img')  #itemからクラス名で品切れ情報を取得
     
 
-    print("空じゃない")
-    return
+    # もし辞書に商品が登録されていたら(含まれていなかったらNoneが返る)
+    if dic.get(title, None) is not None:
+        # 辞書に登録されている価格を取得
+        _sent_price = dic[title]['price']
+        # もし現在の価格と辞書の価格が違えば更新
+        if price != _sent_price:
+            dic[title]['price'] = price
+            print("#" * 50)
+            print("価格が変更!!")
+            print(title)
+            print(_sent_price + " ⇒ " + dic[title]['price'])
+            print(url)
+            await channel_sent.send("価格変更")
+            await channel_sent.send(title)
+            await channel_sent.send(_sent_price + " ⇒ " + dic[title]['price'])
+            await channel_sent.send(url)
+        # 価格が同じ場合
+        '''
+        else:
+            print("価格に変更はない")
+            print(title)
+            print(dic[title])
+            print(url)
+        '''
+    # 辞書に商品が登録されていなかったので価格を登録する
+    else:            
+        dic[title] = {'price': price, 'stock': stock}
+        print("新規登録")
 
-    '''
-    print("#" * 50)
-    print(title)
-    print(dic[title]['price'])
-    print(dic[title]['stock'])
-    '''   
+        await channel_sent.send("新規登録")
+        await channel_sent.send(title)
+        await channel_sent.send(dic[title]['price'])
+        await channel_sent.send(url)
+
 
 
 async def next_page(session, soup):
