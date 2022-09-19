@@ -70,7 +70,9 @@ async def ss(ctx):
 @bot.command()
 async def tt(ctx):
     channel_sent = bot.get_channel(1012237139729199136)
-    await channel_sent.send("価\n格変更")
+    title = "gtx600"
+    price = "300"
+    await channel_sent.send(title + \n + price)
     
     
 asyncio.run(main())
