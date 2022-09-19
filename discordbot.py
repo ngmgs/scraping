@@ -44,12 +44,12 @@ async def fetch(session, url, dic):
                 # もし辞書が空の時（再起動等で辞書が空のとき）
 
                 if any(dic) == False:
-                    promises = [first_items(item, dic) for item in soup.find_all(class_="innerBox")]
+                    promises = [first_items(item, session, dic) for item in soup.find_all(class_="innerBox")]
                     await asyncio.gather(*promises)
                     print("辞書に全アイテム登録完了")
                     return
 
-                promises = [get_items(item, session, dic) for item in soup.find_all(class_="innerBox")]
+                promises = [get_items(item, dic) for item in soup.find_all(class_="innerBox")]
                 await asyncio.gather(*promises)
 
 
