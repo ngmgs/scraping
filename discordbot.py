@@ -26,9 +26,11 @@ async def main():
     JST = timezone(t_delta, 'JST')
     now = datetime.now(JST).strftime('%A/%H:%M:%S')
     print(now)
-    anser = [keisan(i) for i in range(1,11)]
-    await asyncio.gather(*anser)
+    anser, anser2 = [keisan(i) for i in range(1,11)]
+    await asyncio.gather(*anser, *anser2)
     print(datetime.now(JST).strftime('%A/%H:%M:%S'))
+    print(anser)
+    print(anser2)
     
 async def sub():
     t_delta = timedelta(hours=9)
@@ -44,7 +46,7 @@ async def tes():
     JST = timezone(t_delta, 'JST')
     now = datetime.now(JST).strftime('%A/%H:%M:%S')
     print(now)
-    anser = keisan(i) for i in range(1,11)
+    anser = [keisan(i) for i in range(1,11)]
     await asyncio.gather(anser)
     print(datetime.now(JST).strftime('%A/%H:%M:%S'))
     print(anser)
@@ -53,6 +55,7 @@ async def keisan(i):
     tashizan = i + i
     await asyncio.sleep(1)
     kakezan = i * i
+    return tashizan, kakezan
  
 @bot.command()
 async def mm(ctx):
