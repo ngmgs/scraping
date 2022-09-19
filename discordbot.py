@@ -20,7 +20,7 @@ bot = commands.Bot(command_prefix="^",intents=discord.Intents.all())
 is_pc4u_amd = {}
 is_pc4u_nvidia = {}
 
-asyncio.run(main())
+
 
 async def main():
     t_delta = timedelta(hours=9)
@@ -71,6 +71,9 @@ async def ss(ctx):
 async def tt(ctx):
     url = "https://www.pc4u.co.jp/shopbrand/pciexpress4/page1/price/"
     await tes()
+    
+    
+asyncio.run(main())
 """
         
 with open('is_pc4u_amd.csv', 'w') as f:  
