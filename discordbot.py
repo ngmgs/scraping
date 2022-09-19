@@ -28,7 +28,7 @@ async def main():
     print(now)
     anser = []
     anser = [keisan(i) for i in range(1,11)]
-    await asyncio.gather(*anser, *anser2)
+    await asyncio.gather(*anser)
     print(datetime.now(JST).strftime('%A/%H:%M:%S'))
     print(anser)
     
@@ -55,7 +55,7 @@ async def keisan(i):
     tashizan = i + i
     await asyncio.sleep(1)
     kakezan = i * i
-    return tashizan, kakezan
+    return tashizan
  
 @bot.command()
 async def mm(ctx):
