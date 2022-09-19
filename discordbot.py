@@ -51,7 +51,7 @@ async def fetch(session, url, dic):
                 if dic == False:
                     promises = [first_items(item, dic) for item in soup.find_all(class_="innerBox")]
                     await asyncio.gather(*promises)
-                    print（"辞書に全アイテム登録"）
+                    print("辞書に全アイテム登録")
                     return
                  
                 promises = [get_items(item, dic) for item in soup.find_all(class_="innerBox")]
@@ -71,7 +71,7 @@ async def first_items(item, dic):
     stock = item.select_one('div.btnWrap > img')  #itemからクラス名で品切れ情報を取得
     
     
-    print（"空じゃない"）
+    print("空じゃない")
 
 async def get_items(item, dic):
     
