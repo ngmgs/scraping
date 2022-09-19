@@ -51,10 +51,12 @@ async def fetch(session, url, dic):
                     promises = [first_items(item, dic) for item in soup.find_all(class_="innerBox")]
                     await asyncio.gather(*promises)
                     print("辞書に全アイテム登録完了")
-                    return
+                    print(promises)
+                    
 
-                promises = [get_items(item, dic) for item in soup.find_all(class_="innerBox")]
-                await asyncio.gather(*promises)
+                else:
+                    promises = [get_items(item, dic) for item in soup.find_all(class_="innerBox")]
+                    await asyncio.gather(*promises)
 
 
                 url = await next_page(session, soup)
@@ -73,6 +75,7 @@ async def first_items(item, dic):
     stock = item.select_one('div.btnWrap > img')  #itemからクラス名で品切れ情報を取得
     
     dic[title] = {'price': price, 'stock': stock}
+    return price
     
 
 async def get_items(item, dic):
