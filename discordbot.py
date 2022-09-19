@@ -56,8 +56,9 @@ async def fetch(session, url, dic):
                         async with session.get(url) as response:
                             html = await response.text()
                             soup = BeautifulSoup(html, "html.parser")
-                            
-                        print("辞書に全アイテム登録完了")
+
+
+                    print("辞書に全アイテム登録完了")   
                     return
 
                 promises = [get_items(item, dic) for item in soup.find_all(class_="innerBox")]
