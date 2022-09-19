@@ -47,12 +47,12 @@ async def fetch(session, url, dic):
                 soup = BeautifulSoup(html, "html.parser")
                 
                 url = await next_page(session, soup)
-                '''
+                # もし辞書が空の時（再起動等で辞書が空のとき）
                 if dic == False:
-                    promises = [get_items(item, dic) for item in soup.find_all(class_="innerBox")]
+                    promises = [first_items(item, dic) for item in soup.find_all(class_="innerBox")]
                     await asyncio.gather(*promises)
                     return
-                ''' 
+                 
                 promises = [get_items(item, dic) for item in soup.find_all(class_="innerBox")]
                 await asyncio.gather(*promises)
                 
@@ -62,6 +62,15 @@ async def fetch(session, url, dic):
                 await asyncio.sleep(5)
                     
     return
+
+async def first_items(item, dic):
+    
+    title = item.select_one('p.name').text  # itemからクラス名で商品名を取得
+    price = item.select_one('p.price').text  # itemからクラス名で価格を取得
+    stock = item.select_one('div.btnWrap > img')  #itemからクラス名で品切れ情報を取得
+    
+    
+    print（"空じゃない"）
 
 async def get_items(item, dic):
     
