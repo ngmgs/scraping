@@ -55,7 +55,7 @@ async def keisan(i):
     tashizan = i + i
     await asyncio.sleep(1)
     kakezan = i * i
-    return tashizan
+    return tashizan, kakezan
  
 @bot.command()
 async def mm(ctx):
