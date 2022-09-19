@@ -162,6 +162,17 @@ async def next_page(session, soup):
     return url
 
 
+@tasks.loop(minutes=1)
+async def send_message_every():
+    await main()
+
+@bot.event
+async def on_ready():
+    send_message_every.start()  # ループ処理開始
+
+
+
+
 @bot.command()
 async def ping(ctx):
     await main()
