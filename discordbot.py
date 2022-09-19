@@ -26,18 +26,35 @@ async def main():
     JST = timezone(t_delta, 'JST')
     now = datetime.now(JST).strftime('%A/%H:%M:%S')
     print(now)
-    anser = [keisan(i) for i in range(1,101)]
+    anser = [keisan(i) for i in range(1,11)]
     await asyncio.gather(*anser)
     print(datetime.now(JST).strftime('%A/%H:%M:%S'))
     
+async def sub():
+    t_delta = timedelta(hours=9)
+    JST = timezone(t_delta, 'JST')
+    now = datetime.now(JST).strftime('%A/%H:%M:%S')
+    print(now)
+    for i in range(1,11):
+        tashizan = i + i
+        await asyncio.sleep(1)
+        kakezan = i * i
+    print(datetime.now(JST).strftime('%A/%H:%M:%S'))
     
 async def keisan(i):
     tashizan = i + i
     await asyncio.sleep(1)
     kakezan = i * i
  
-
+@bot.command()
+async def m(ctx):
+    url = "https://www.pc4u.co.jp/shopbrand/pciexpress4/page1/price/"
+    await main()
     
+@bot.command()
+async def s(ctx):
+    url = "https://www.pc4u.co.jp/shopbrand/pciexpress4/page1/price/"
+    await sub()
 """
         
 with open('is_pc4u_amd.csv', 'w') as f:  
@@ -358,10 +375,7 @@ async def on_command_error(ctx, error):
     await ctx.send(error_msg)
 """
 
-@bot.command()
-async def ping(ctx):
-    url = "https://www.pc4u.co.jp/shopbrand/pciexpress4/page1/price/"
-    await main()
+
 
 @bot.command()
 async def pank(ctx):
