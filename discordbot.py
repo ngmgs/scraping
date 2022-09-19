@@ -28,7 +28,7 @@ async def main():
     print(now)
     anser = [keisan(i) for i in range(1,101)]
     await asyncio.gather(*anser)
-    print(now)
+    print(datetime.now(JST).strftime('%A/%H:%M:%S'))
     
     
 async def keisan(i):
