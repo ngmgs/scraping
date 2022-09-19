@@ -88,6 +88,7 @@ async def get_items(item, dic):
     title = item.select_one('p.name').text  # itemからクラス名で商品名を取得
     price = item.select_one('p.price').text  # itemからクラス名で価格を取得
     stock = item.select_one('div.btnWrap > img')  #itemからクラス名で品切れ情報を取得
+    print(stock)
 
 
     # もし辞書に商品が登録されていたら(含まれていなかったらNoneが返る)
@@ -119,17 +120,18 @@ async def get_items(item, dic):
             print(url)
         '''
         if stock != _sent_stock:
-            dic[title]['stock'] = stock
-            print("#" * 50)
-            print("在庫復活!!")
-            print(title)
-            print(_sent_price + " ⇒ " + dic[title]['price'])
-            print(url)
-            await channel_sent.send("在庫復活")
-            await channel_sent.send(title)
-            await channel_sent.send("新：" + dic[title]['price'])
-            await channel_sent.send("旧：" + _sent_price)
-            await channel_sent.send(url)
+            if stock is None:
+                dic[title]['stock'] = stock
+                print("#" * 50)
+                print("在庫復活!!")
+                print(title)
+                print(_sent_price + " ⇒ " + dic[title]['price'])
+                print(url)
+                await channel_sent.send("在庫復活")
+                await channel_sent.send(title)
+                await channel_sent.send("新：" + dic[title]['price'])
+                await channel_sent.send("旧：" + _sent_price)
+                await channel_sent.send(url)
             
             
     # 辞書に商品が登録されていなかったので価格を登録する
