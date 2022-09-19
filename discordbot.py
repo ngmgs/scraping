@@ -94,6 +94,7 @@ async def get_items(item, dic):
     if dic.get(title, None) is not None:
         # 辞書に登録されている価格を取得
         _sent_price = dic[title]['price']
+        _sent_stock = dic[title]['stock']
         # もし現在の価格と辞書の価格が違えば更新
         if price != _sent_price:
             dic[title]['price'] = price
@@ -104,16 +105,33 @@ async def get_items(item, dic):
             print(url)
             await channel_sent.send("価格変更")
             await channel_sent.send(title)
-            await channel_sent.send(_sent_price + " ⇒ " + dic[title]['price'])
+            await channel_sent.send("新：" + dic[title]['price'])
+            await channel_sent.send("旧：" + _sent_price)
             await channel_sent.send(url)
         # 価格が同じ場合
         '''
         else:
+            print("#" * 50)
             print("価格に変更はない")
             print(title)
-            print(dic[title])
+            print(dic[title]['price'])
+            print(dic[title]['stock'])
             print(url)
         '''
+        if stoce != _sent_stock:
+            dic[title]['stock'] = stock
+            print("#" * 50)
+            print("在庫復活!!")
+            print(title)
+            print(_sent_price + " ⇒ " + dic[title]['price'])
+            print(url)
+            await channel_sent.send("在庫復活")
+            await channel_sent.send(title)
+            await channel_sent.send("新：" + dic[title]['price'])
+            await channel_sent.send("旧：" + _sent_price)
+            await channel_sent.send(url)
+            
+            
     # 辞書に商品が登録されていなかったので価格を登録する
     else:
         dic[title] = {'price': price, 'stock': stock}
