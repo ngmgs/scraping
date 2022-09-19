@@ -71,7 +71,7 @@ async def first_items(item, session, dic):
 
         dic[title] = {'price': price, 'stock': stock}
 
-        url = await next_page(session, soup)
+        url = await next_page(session, item)
 
         if url is None:
             break
