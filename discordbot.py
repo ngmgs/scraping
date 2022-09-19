@@ -47,16 +47,14 @@ async def fetch(session, url, dic):
                 soup = BeautifulSoup(html, "html.parser")
 
                 # もし辞書が空の時（再起動等で辞書が空のとき）
-                if any(dic) == False:
-                    promises = [first_items(item, dic) for item in soup.find_all(class_="innerBox")]
-                    await asyncio.gather(*promises)
-                    print("辞書に全アイテム登録完了")
-                    print(promises)
-                    
+                '''
+                promises = [first_items(item, dic) for item in soup.find_all(class_="innerBox")]
+                await asyncio.gather(*promises)
+                print("辞書に全アイテム登録完了")
+                '''
 
-                else:
-                    promises = [get_items(item, dic) for item in soup.find_all(class_="innerBox")]
-                    await asyncio.gather(*promises)
+                promises = [get_items(item, dic) for item in soup.find_all(class_="innerBox")]
+                await asyncio.gather(*promises)
 
 
                 url = await next_page(session, soup)
@@ -75,7 +73,7 @@ async def first_items(item, dic):
     stock = item.select_one('div.btnWrap > img')  #itemからクラス名で品切れ情報を取得
     
     dic[title] = {'price': price, 'stock': stock}
-    return price
+
     
 
 async def get_items(item, dic):
@@ -112,12 +110,14 @@ async def get_items(item, dic):
     # 辞書に商品が登録されていなかったので価格を登録する
     else:            
         dic[title] = {'price': price, 'stock': stock}
+        '''
         print("新規登録")
 
         await channel_sent.send("新規登録")
         await channel_sent.send(title)
         await channel_sent.send(dic[title]['price'])
         await channel_sent.send(url)
+        '''
 
 
 
