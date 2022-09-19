@@ -14,7 +14,7 @@ from os import getenv
 from datetime import datetime, timezone, timedelta, time
 from bs4 import BeautifulSoup
 
-bot = commands.Bot(command_prefix="\",intents=discord.Intents.all())
+bot = commands.Bot(command_prefix="^",intents=discord.Intents.all())
 
 
 is_pc4u_amd = {}
