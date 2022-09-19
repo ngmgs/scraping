@@ -70,8 +70,8 @@ async def first_items(item, dic):
     price = item.select_one('p.price').text  # itemからクラス名で価格を取得
     stock = item.select_one('div.btnWrap > img')  #itemからクラス名で品切れ情報を取得
     
+    dic[title] = {'price': price, 'stock': stock}
     
-    print("空じゃない")
 
 async def get_items(item, dic):
     
@@ -80,15 +80,14 @@ async def get_items(item, dic):
     stock = item.select_one('div.btnWrap > img')  #itemからクラス名で品切れ情報を取得
     
     
-    dic[title] = {'price': price, 'stock': stock}
+    print("空じゃない")
 
+    '''
     print("#" * 50)
     print(title)
     print(dic[title]['price'])
     print(dic[title]['stock'])
-
-    
-    
+    '''   
 
 
 async def next_page(session, soup):
