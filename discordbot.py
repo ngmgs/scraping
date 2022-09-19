@@ -138,7 +138,7 @@ async def get_items(item, dic):
                 print(title)
                 print(_sent_price + " ⇒ " + dic[title]['price'])
                 print(url)
-                await channel_sent.send("売り切れ" + "/n" + title + "/n" + "新：" + dic[title]['price'] + "/n" + "旧：" + _sent_price + "/n" + url)
+                await channel_sent.send("売り切れ" + "\n" + title + "\n" + "新：" + dic[title]['price'] + "\n" + "旧：" + _sent_price + "\n" + url)
                 '''
                 await channel_sent.send("売り切れ")
                 await channel_sent.send(title)
@@ -186,7 +186,7 @@ async def dis(ctx):
     price2 = "200円"
     url = "https://ssss.com"
     
-    await channel_sent.send("売り切れ" + "/n" + title + "/n" + "新：" + price + "/n" + "旧：" + price2 + "/n" + url)
+    await channel_sent.send("売り切れ" + "\n" + title + "\n" + "新：" + price + "\n" + "旧：" + price2 + "\n" + url)
 
 @bot.command()
 async def pank(ctx):
