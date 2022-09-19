@@ -103,11 +103,8 @@ async def get_items(item, dic):
             print(title)
             print(_sent_price + " ⇒ " + dic[title]['price'])
             print(url)
-            await channel_sent.send("価格変更")
-            await channel_sent.send(title)
-            await channel_sent.send("新：" + dic[title]['price'])
-            await channel_sent.send("旧：" + _sent_price)
-            await channel_sent.send(url)
+            await channel_sent.send("価格変更" + "\n" + title + "\n" + "新：" + dic[title]['price'] + "\n" + "旧：" + _sent_price + "\n" + url)
+
         # 価格が同じ場合
         '''
         else:
@@ -126,11 +123,8 @@ async def get_items(item, dic):
                 print(title)
                 print(_sent_price + " ⇒ " + dic[title]['price'])
                 print(url)
-                await channel_sent.send("在庫復活")
-                await channel_sent.send(title)
-                await channel_sent.send("新：" + dic[title]['price'])
-                await channel_sent.send("旧：" + _sent_price)
-                await channel_sent.send(url)
+                await channel_sent.send("在庫復活" + "\n" + title + "\n" + "新：" + dic[title]['price'] + "\n" + "旧：" + _sent_price + "\n" + url)
+
             else:
                 dic[title]['stock'] = stock
                 print("#" * 50)
@@ -152,13 +146,7 @@ async def get_items(item, dic):
         dic[title] = {'price': price, 'stock': stock}
 
         print("新規登録")
-
-        await channel_sent.send("新規登録")
-        await channel_sent.send(title)
-        await channel_sent.send(dic[title]['price'])
-        await channel_sent.send(url)
-
-
+        await channel_sent.send("新規登録" + "\n" + title + "\n" + "新：" + price + "\n" + url)
 
 
 async def next_page(session, soup):
@@ -186,8 +174,7 @@ async def dis(ctx):
     price2 = "200円"
     url = "https://ssss.com"
     
-    await channel_sent.send("売り切れ", title, "新：" + price, "旧：" + price2, url, sep='\n')
-    # await channel_sent.send("売り切れ" + "\n" + title + "\n" + "新：" + price + "\n" + "旧：" + price2 + "\n" + url)
+    await channel_sent.send("売り切れ" + "\n" + title + "\n" + "新：" + price + "\n" + "旧：" + price2 + "\n" + url)
 
 @bot.command()
 async def pank(ctx):
