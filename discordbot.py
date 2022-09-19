@@ -47,12 +47,12 @@ async def keisan(i):
     kakezan = i * i
  
 @bot.command()
-async def m(ctx):
+async def mm(ctx):
     url = "https://www.pc4u.co.jp/shopbrand/pciexpress4/page1/price/"
     await main()
     
 @bot.command()
-async def s(ctx):
+async def ss(ctx):
     url = "https://www.pc4u.co.jp/shopbrand/pciexpress4/page1/price/"
     await sub()
 """
