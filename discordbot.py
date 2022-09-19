@@ -45,26 +45,27 @@ async def fetch(session, url, dic):
             async with session.get(url) as response:
                 html = await response.text()
                 soup = BeautifulSoup(html, "html.parser")
-                
-                url = await next_page(session, soup)
+
                 # もし辞書が空の時（再起動等で辞書が空のとき）
                 print(dic)
-                if dic == False:
+                if any(dic) == False:
                     print("辞書に全アイテム登録")
                     promises = [first_items(item, dic) for item in soup.find_all(class_="innerBox")]
                     await asyncio.gather(*promises)
-                    print("辞書に全アイテム登録")
+                    print("辞書に全アイテム登録完了")
                     return
                  
                 promises = [get_items(item, dic) for item in soup.find_all(class_="innerBox")]
                 await asyncio.gather(*promises)
-                
-                break
+
+
+                url = await next_page(session, soup)
+
                 if url is None:
                     break
 
                 await asyncio.sleep(5)
-                    
+
     return
 
 async def first_items(item, dic):
@@ -82,9 +83,9 @@ async def get_items(item, dic):
     price = item.select_one('p.price').text  # itemからクラス名で価格を取得
     stock = item.select_one('div.btnWrap > img')  #itemからクラス名で品切れ情報を取得
     
-    if dic == False:
-        return
+
     print("空じゃない")
+    return
 
     '''
     print("#" * 50)
