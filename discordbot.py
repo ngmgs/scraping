@@ -43,7 +43,7 @@ async def fetch(session, url, dic):
 
                 # もし辞書が空の時（再起動等で辞書が空のとき）
                 if any(dic) == False:
-                    while True
+                    while True:                        
                         promises = [first_items(item, dic) for item in soup.find_all(class_="innerBox")]
                         await asyncio.gather(*promises)
 
