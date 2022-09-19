@@ -186,7 +186,8 @@ async def dis(ctx):
     price2 = "200円"
     url = "https://ssss.com"
     
-    await channel_sent.send("売り切れ" + "\n" + title + "\n" + "新：" + price + "\n" + "旧：" + price2 + "\n" + url)
+    await channel_sent.send("売り切れ", title, "新：" + price, "旧：" + price2, url, sep='\n')
+    # await channel_sent.send("売り切れ" + "\n" + title + "\n" + "新：" + price + "\n" + "旧：" + price2 + "\n" + url)
 
 @bot.command()
 async def pank(ctx):
