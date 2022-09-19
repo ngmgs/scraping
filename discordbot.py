@@ -22,8 +22,7 @@ is_pc4u_nvidia = {}
 
 
 async def main():
-    kazu = 100
-    anser = [keisan(i) for i in kazu]
+    anser = [keisan(i) for i in range(1,101)]
     await asyncio.gather(*anser)
     
 async def keisan(i):
