@@ -24,7 +24,7 @@ is_pc4u_nvidia = {}
 async def main():
     anser = [keisan(i) for i in range(1,101)]
     await asyncio.gather(*anser)
-    print(ansser)
+    print(anser)
     
 async def keisan(i):
     tashizan = i + i
@@ -342,14 +342,14 @@ async def pc4u_nvidia():
         if title is None:
             continue
     #print(is_pc4u_nvidia)
-"""
+
 
 @bot.event
 async def on_command_error(ctx, error):
     orig_error = getattr(error, "original", error)
     error_msg = ''.join(traceback.TracebackException.from_exception(orig_error).format())
     await ctx.send(error_msg)
-
+"""
 
 @bot.command()
 async def ping(ctx):
