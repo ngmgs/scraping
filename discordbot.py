@@ -69,8 +69,8 @@ async def ss(ctx):
     
 @bot.command()
 async def tt(ctx):
-    url = "https://www.pc4u.co.jp/shopbrand/pciexpress4/page1/price/"
-    await tes()
+    channel_sent = bot.get_channel(1012237139729199136)
+    await channel_sent.send("価\n格変更")
     
     
 asyncio.run(main())
