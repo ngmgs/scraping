@@ -179,6 +179,16 @@ async def ping(ctx):
     await main()
 
 @bot.command()
+async def dis(ctx):
+    channel_sent = bot.get_channel(1012237139729199136)
+    title = "gtx300"
+    price = "500円"
+    price2 = "200円"
+    url = "https://ssss.com"
+    
+    await channel_sent.send("売り切れ" + "/n" + title + "/n" + "新：" + price + "/n" + "旧：" + price2 + "/n" + url)
+
+@bot.command()
 async def pank(ctx):
     my_dict = { 'Apple': 4, 'Banana': 2, 'Orange': 6, 'Grapes': 11}
 
