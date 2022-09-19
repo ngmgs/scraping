@@ -27,7 +27,8 @@ async def main():
     now = datetime.now(JST).strftime('%A/%H:%M:%S')
     anser = [keisan(i) for i in range(1,101)]
     await asyncio.gather(*anser)
-    print(now + "----" + anser)
+    print(now)
+    print(anser)
     
 async def keisan(i):
     tashizan = i + i
