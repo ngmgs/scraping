@@ -31,6 +31,8 @@ async def main():
     result = await asyncio.gather(*anser)
     print(datetime.now(JST).strftime('%A/%H:%M:%S'))
     print(result)
+    print(result[9])
+    print(result[9][1])
     
 async def sub():
     t_delta = timedelta(hours=9)
