@@ -42,11 +42,22 @@ async def fetch(session, url, dic):
                 soup = BeautifulSoup(html, "html.parser")
 
                 # もし辞書が空の時（再起動等で辞書が空のとき）
-
                 if any(dic) == False:
-                    promises = [first_items(item, session, dic) for item in soup.find_all(class_="innerBox")]
-                    await asyncio.gather(*promises)
-                    print("辞書に全アイテム登録完了")
+                    while True
+                        promises = [first_items(item, dic) for item in soup.find_all(class_="innerBox")]
+                        await asyncio.gather(*promises)
+
+                        url = await next_page(session, soup)
+
+                        if url is None:
+                            break
+
+                        await asyncio.sleep(5)
+                        async with session.get(url) as response:
+                            html = await response.text()
+                            soup = BeautifulSoup(html, "html.parser")
+                            
+                        print("辞書に全アイテム登録完了")
                     return
 
                 promises = [get_items(item, dic) for item in soup.find_all(class_="innerBox")]
@@ -62,28 +73,13 @@ async def fetch(session, url, dic):
 
     return
 
-async def first_items(item, session, dic):
-    while True:      
+async def first_items(item, dic):
 
-        title = item.select_one('p.name').text  # itemからクラス名で商品名を取得
-        price = item.select_one('p.price').text  # itemからクラス名で価格を取得
-        stock = item.select_one('div.btnWrap > img')  #itemからクラス名で品切れ情報を取得
+    title = item.select_one('p.name').text  # itemからクラス名で商品名を取得
+    price = item.select_one('p.price').text  # itemからクラス名で価格を取得
+    stock = item.select_one('div.btnWrap > img')  #itemからクラス名で品切れ情報を取得
 
-        dic[title] = {'price': price, 'stock': stock}
-
-        url = await next_page(session, item)
-
-        if url is None:
-            break
-
-        await asyncio.sleep(5)
-
-        async with session.get(url) as response:
-            html = await response.text()
-            item = BeautifulSoup(html, "html.parser")
-            
-    return
-
+    dic[title] = {'price': price, 'stock': stock}
 
 
 async def get_items(item, dic):
@@ -118,7 +114,7 @@ async def get_items(item, dic):
             print(url)
         '''
     # 辞書に商品が登録されていなかったので価格を登録する
-    else:            
+    else:
         dic[title] = {'price': price, 'stock': stock}
 
         print("新規登録")
