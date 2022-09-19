@@ -23,12 +23,13 @@ is_pc4u_nvidia = {}
 
 async def main():
     anser = [keisan(i) for i in range(1,101)]
-    await asyncio.gather(*anser)
+    await asyncio.gather(anser)
     print(anser)
     
 async def keisan(i):
     tashizan = i + i
     kakezan = i * i
+    return tashizan
 
     
 """
