@@ -27,10 +27,10 @@ async def main():
     JST = timezone(t_delta, 'JST')
     now = datetime.now(JST).strftime('%A/%H:%M:%S')
     print(now)
-    anser = [keisan(i) for i in range(1,11)]
+    result = anser = [keisan(i) for i in range(1,11)]
     await asyncio.gather(*anser)
     print(datetime.now(JST).strftime('%A/%H:%M:%S'))
-    print(anser)
+    print(result)
     
 async def sub():
     t_delta = timedelta(hours=9)
