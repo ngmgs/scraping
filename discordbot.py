@@ -118,7 +118,7 @@ async def get_items(item, dic):
             print(dic[title]['stock'])
             print(url)
         '''
-        if stoce != _sent_stock:
+        if stock != _sent_stock:
             dic[title]['stock'] = stock
             print("#" * 50)
             print("在庫復活!!")
