@@ -33,7 +33,7 @@ async def main():
     
 async def keisan(i):
     tashizan = i + i
-    await asyncio.sleep(10)
+    await asyncio.sleep(1)
     kakezan = i * i
  
 
