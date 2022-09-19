@@ -59,6 +59,7 @@ async def fetch(session, url, dic):
                 promises = [get_items(item, dic) for item in soup.find_all(class_="innerBox")]
                 await asyncio.gather(*promises)
                 '''
+                break
                 if url is None:
                     break
 
