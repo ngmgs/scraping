@@ -39,6 +39,16 @@ async def sub():
         await keisan(i)
     print(datetime.now(JST).strftime('%A/%H:%M:%S'))
     
+async def tes():
+    t_delta = timedelta(hours=9)
+    JST = timezone(t_delta, 'JST')
+    now = datetime.now(JST).strftime('%A/%H:%M:%S')
+    print(now)
+    anser = keisan(i) for i in range(1,11)
+    await asyncio.gather(anser)
+    print(datetime.now(JST).strftime('%A/%H:%M:%S'))
+    print(anser)
+    
 async def keisan(i):
     tashizan = i + i
     await asyncio.sleep(1)
@@ -53,6 +63,11 @@ async def mm(ctx):
 async def ss(ctx):
     url = "https://www.pc4u.co.jp/shopbrand/pciexpress4/page1/price/"
     await sub()
+    
+@bot.command()
+async def tt(ctx):
+    url = "https://www.pc4u.co.jp/shopbrand/pciexpress4/page1/price/"
+    await tes()
 """
         
 with open('is_pc4u_amd.csv', 'w') as f:  
