@@ -22,9 +22,12 @@ is_pc4u_nvidia = {}
 
 
 async def main():
+    t_delta = timedelta(hours=9)
+    JST = timezone(t_delta, 'JST')
+    now = datetime.now(JST).strftime('%A/%H:%M:%S')
     anser = [keisan(i) for i in range(1,101)]
-    await asyncio.gather(anser)
-    print(anser)
+    await asyncio.gather(*anser)
+    print(now + "----" + anser)
     
 async def keisan(i):
     tashizan = i + i
