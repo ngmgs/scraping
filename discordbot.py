@@ -24,7 +24,7 @@ async def main():
     async with aiohttp.ClientSession() as session:
         urls = {
             'https://www.pc4u.co.jp/shopbrand/pciexpress4/page1/price/': is_pc4u_amd,
-            # 'https://www.pc4u.co.jp/shopbrand/ct1850/page1/price/': is_nvidia,
+            'https://www.pc4u.co.jp/shopbrand/ct1850/page1/price/': is_nvidia,
         }
         promises = [fetch(session, url, dic) for url, dic in urls.items()]
         print(promises)
