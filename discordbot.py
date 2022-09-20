@@ -88,6 +88,8 @@ async def get_items(item, dic):
     title = item.select_one('p.name').text  # itemからクラス名で商品名を取得
     price = item.select_one('p.price').text  # itemからクラス名で価格を取得
     stock = item.select_one('div.btnWrap > img')  #itemからクラス名で品切れ情報を取得
+    url_temp = item.select_one('p.name > a') #itemからクラス名で価格を取得
+    url = "https://www.pc4u.co.jp" + url_temp.get('href')
 
 
     # もし辞書に商品が登録されていたら(含まれていなかったらNoneが返る)
